@@ -1,17 +1,15 @@
 class Solution {
 public:
     int distributeCandies(vector<int>& candies) {
-        int a=*max_element(candies.begin(),candies.end());
-        int b=*min_element(candies.begin(),candies.end());
-        set <int> s;
-        for(int i=0;i<candies.size();i++)
-        {
-            s.insert(candies[i]);
-        }
-        int k=s.size();
-        int x=candies.size()/2;
-        if(k<x)
-            return k;
-        else return x;
+        class Solution {
+public:
+    int distributeCandies(vector<int>& candyType) {
+        int l=candyType.size()/2;
+        unordered_set<int> s;
+        for(auto i:candyType) s.insert(i);
+        if(s.size()<=l) return s.size();
+        return l;
+    }
+};
     }
 };
