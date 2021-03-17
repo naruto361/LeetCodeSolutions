@@ -1,5 +1,5 @@
-class Solution {
-public:
+## [TWO SUM](https://leetcode.com/problems/two-sum/)
+```cpp
     vector<int> twoSum(vector<int>& nums, int target) {
         vector<int> v;
         for(int i=0;i<nums.size();i++)
@@ -13,4 +13,4 @@ public:
         }
         return v;
     }
-};
+```
