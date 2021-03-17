@@ -1,16 +1,13 @@
 ## [TWO SUM](https://leetcode.com/problems/two-sum/)
 ```cpp
     vector<int> twoSum(vector<int>& nums, int target) {
-        vector<int> v;
-        for(int i=0;i<nums.size();i++)
+        unordered_map<int, int> v;
+        int k=0;
+        for (auto i:nums) 
         {
-            for(int j=i+1;j<nums.size();j++)
-            {
-                if( (nums[i]+nums[j]) ==target)
-                {v.push_back(i);v.push_back(j);
-                    return v;}
-            }
+            if (v.find(target -i) != v.end()) return {v[target -i], k};
+            v[i] = k++;
         }
-        return v;
+        return {};
     }
 ```
