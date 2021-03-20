@@ -1,5 +1,5 @@
-class Solution {
-public:
+## [MINIMUM PATH SUM](https://leetcode.com/problems/minimum-path-sum/)
+```cpp
     int minPathSum(vector<vector<int>>& grid) {
         int m=grid.size(),n=grid[0].size();
         int ans[m][n];
@@ -21,6 +21,4 @@ public:
         }
         return ans[m-1][n-1];  
        
-
-    }
-};
+```
