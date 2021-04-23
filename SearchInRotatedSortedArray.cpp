@@ -1,16 +1,19 @@
-class Solution {
-public:
-    int search(vector<int>& nums, int target) {
-        int lo = 0, hi = int(nums.size()) - 1;
-    while (lo < hi) {
-        int mid = (lo + hi) / 2;
-        if ((nums[0] > target) ^ (nums[0] > nums[mid]) ^ (target > nums[mid]))
-            lo = mid + 1;
+int search(vector<int>& nums, int target) {
+        int l=0,h=nums.size()-1;
+    while(l<=h)
+    {
+        int mid= l+ (h-l)/2;
+        if(nums[mid]==target) return mid;
+        if(nums[l]<=nums[mid])
+        {
+            if(target>=nums[l] && target<nums[mid]) h=mid-1;
+            else l=mid+1;
+        }
         else
-            hi = mid;
+        {
+            if(target>nums[mid] && target<=nums[h]) l=mid+1;
+            else h=mid-1;
+        }
     }
-    if(lo == hi && nums[lo] == target ) 
-        return lo;
-        else return -1;
+    return -1;
     }
-};
