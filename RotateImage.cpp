@@ -1,17 +1,18 @@
-class Solution {
-public:
-    void rotate(vector<vector<int>>& a) {
-        int N=a.size();
-        for (int i = 0; i < N / 2; i++) 
-        { 
-            for (int j = i; j < N - i - 1; j++) 
-            { 
-                int temp = a[i][j]; 
-                a[i][j] = a[N - 1 - j][i]; 
-                a[N - 1 - j][i] = a[N - 1 - i][N - 1 - j]; 
-                a[N - 1 - i][N - 1 - j] = a[j][N - 1 - i]; 
-                a[j][N - 1 - i] = temp; 
-            } 
-        } 
+void rotate(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        vector<vector<int>> v(n,vector<int>(n,0));
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                v[i][j]=matrix[n-1-j][i];
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                matrix[i][j]=v[i][j];
+            }
+        }
     }
-};
