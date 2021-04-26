@@ -7,7 +7,7 @@ int nextGreaterElement(int n) {
         {
             if(s[i]<s[i+1]) c=0;
         }
-        if(c==1) return -1;
+        if(c==1) return -1; \\ already the greatest number formed using digits 
         sort(s.begin(),s.end());
         do
         {
