@@ -1,33 +1,24 @@
-class Solution {
-public:
-    void mark(vector<vector<char>> &mat,int x,int y,int r,int c)
+void dfs(int i,int j,vector<vector<char>> &grid)
     {
-        if(x<0 || x>=r || y<0 || y>=c ||mat[x][y]!='1') return;
-            mat[x][y]='2';
-            mark(mat,x+1,y,r,c);
-            mark(mat,x,y+1,r,c);
-            mark(mat,x,y-1,r,c);
-            mark(mat,x-1,y,r,c);
+        if(i<0 || j<0 || i>=grid.size() || j>=grid[0].size() || grid[i][j]!='1') return;
+        grid[i][j]='2';
+        dfs(i+1,j,grid);
+        dfs(i,j+1,grid);
+        dfs(i-1,j,grid);
+        dfs(i,j-1,grid);
     }
-    public:
     int numIslands(vector<vector<char>>& grid) {
-        ios_base::sync_with_stdio(false);
-	    cin.tie(NULL);
-        int rows=grid.size();
-        if(rows==0) return 0;
-        int col=grid[0].size();
         int ans=0;
-        for(int i=0;i<rows;i++)
+        for(int i=0;i<grid.size();i++)
         {
-            for(int j=0;j<col;j++)
+            for(int j=0;j<grid[0].size();j++)
             {
                 if(grid[i][j]=='1')
-                {   mark(grid,i,j,rows,col);
+                {
+                    dfs(i,j,grid);
                     ans++;
-                    
                 }
             }
         }
         return ans;
     }
-};
