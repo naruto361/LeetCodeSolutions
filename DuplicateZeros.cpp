@@ -1,14 +1,12 @@
-class Solution {
-public:
-    void duplicateZeros(vector<int>& arr) {
-        for(int i=0;i<arr.size();i++)
+void duplicateZeros(vector<int>& arr) {
+        int l=arr.size();
+        int i=arr.size()-1;
+        while(1)
         {
-            if(arr[i]==0)
-            {   
-                for(int j=arr.size()-1;j>i;j--)
-                    arr[j]=arr[j-1];
-                ++i;
-            }
+            if(arr[i]==0) arr.insert(arr.begin()+i,0);
+            i--;
+            if(i<0) break;
         }
+        arr.erase(arr.begin()+l,arr.end());
+        
     }
-};
