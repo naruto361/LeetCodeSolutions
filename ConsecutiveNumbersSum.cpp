@@ -8,3 +8,5 @@ int consecutiveNumbersSum(int N) {
         }
         return ans;
     }
+//https://www.youtube.com/watch?v=5Kl8q9kqlNg
+//3:24
