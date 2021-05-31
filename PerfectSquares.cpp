@@ -1,28 +1,15 @@
-class Solution {
-public:
-    int numSquares(int n) 
-    {   if(n==1) return 1;
-     else if(n==2) return 2;
-        int* dp = new int[n + 1]; 
-        dp[0] = 0; 
-        dp[1] = 1; 
-        dp[2] = 2; 
-        dp[3] = 3; 
-        for (int i = 4; i <= n; i++) 
-        { 
-        dp[i] = i; 
-        for (int x = 1; x <= ceil(sqrt(i)); x++) 
-        { 
-            int temp = x * x; 
-            if (temp > i) 
-                break; 
-            else
-                dp[i] = min(dp[i], 1 + dp[i - temp]); 
-        } 
-    } 
-    int res = dp[n]; 
-    delete[] dp; 
-  
-    return res; 
+int numSquares(int n) {
+        int dp[n+1];
+        dp[0] = 0;
+        
+        for(int i=1;i<=n;++i)
+        {
+            dp[i] = i;
+            for(int j=1;j*j<=i;++j)
+            {
+                int sq = j*j;
+                dp[i] = min(dp[i],1+dp[i-sq]);
+            }
+        }
+        return dp[n];
     }
-};
