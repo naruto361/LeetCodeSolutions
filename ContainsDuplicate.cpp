@@ -1,10 +1,9 @@
-class Solution {
-public:
-    bool containsDuplicate(vector<int>& nums) {
-        int n=nums.size();
-        sort(nums.begin(),nums.end());
-        for(int i=1;i<n;i++)
-            if(nums[i]==nums[i-1]) return true;
-        return false;
+bool containsDuplicate(vector<int>& nums) {
+        unordered_set<int> s;
+        for(int i:nums)
+        {
+            if(s.find(i)!=s.end()) return 1;
+            s.insert(i);
+        }
+        return 0;
     }
-};
