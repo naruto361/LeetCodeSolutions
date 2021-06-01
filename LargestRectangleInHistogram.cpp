@@ -7,14 +7,17 @@ int largestRectangleArea(vector<int>& heights) {
             if(st.empty() || heights[i]>heights[st.top()])
             {
                 st.push(i++);
+                cout<<"push : "<<heights[i-1]<<endl;
             }
             else
             {
                 int j=st.top();
                 st.pop();
+                cout<<"pop : "<<heights[j]<<" "; 
                 int a=heights[j];
-                if(!st.empty()) a*=(i-st.top()-1);
-                else a*=i;
+                if(!st.empty()) a*=(i-st.top()-1),cout<<a<<"*"<<"("<<i<<"-"<<st.top()<<"-"<<1<<") ";
+                else cout<<a<<"*"<<i<<" ",a*=i;
+                cout<<"area : "<<a<<endl;
                 if(a>ans) ans=a;
             }
         }
@@ -23,8 +26,9 @@ int largestRectangleArea(vector<int>& heights) {
             int j=st.top();
                 st.pop();
                 int a=heights[j];
-                if(!st.empty()) a*=(i-st.top()-1);
-                else a*=i;
+                if(!st.empty()) a*=(i-st.top()-1),cout<<a<<"*"<<"("<<i<<"-"<<st.top()<<"-"<<1<<") ";
+                else cout<<a<<"*"<<i<<" ",a*=i;
+                cout<<"area : "<<a<<endl;
                 if(a>ans) ans=a;
         }
         return ans;
