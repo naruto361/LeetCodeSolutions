@@ -1,5 +1,4 @@
-class Solution {
-public:
+   
     int maxProfit(vector<int>& prices) {
         if(prices.size()<2) return 0;
         int mini=INT_MAX;
@@ -11,4 +10,17 @@ public:
         }
         return maxi;
     }
-};
+
+ ********************************************************
+ 
+     int maxProfit(vector<int>& prices) {
+        if(prices.size()<2) return 0;
+        int maxi=0,mini=prices[0];
+        int ans=0;
+        for(int i:prices)
+        {
+            ans=max(ans,i-mini);
+            if(i<mini) mini=i;
+        }
+        return ans;
+    }
