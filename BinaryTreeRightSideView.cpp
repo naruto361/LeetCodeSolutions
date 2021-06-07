@@ -1,45 +1,21 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
-class Solution {
-public:
-    void answer(vector<vector<int>> &v,TreeNode *root)
-{
-    if(root==NULL) return ;
-    queue<TreeNode*> q;
-    q.push(root);
-    vector<int> t;
-    while(!q.empty())
-    {
-        int n=q.size();
-        for(int i=0;i<n;i++)
+vector<int> rightSideView(TreeNode* root) {
+        if(root==NULL) return {};
+        vector<int> temp;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty())
         {
-            TreeNode *temp=q.front();
-            q.pop();
-            t.push_back(temp->val);
-            if(temp->left) q.push(temp->left);
-            if(temp->right) q.push(temp->right);
+            int x;
+            int n=q.size();
+            for(int i=0;i<n;i++)
+            {
+                TreeNode* k=q.front();
+                q.pop();
+                x=k->val;
+                if(k->left) q.push(k->left);
+                if(k->right) q.push(k->right);
+            }
+            temp.push_back(x);
         }
-        v.push_back(t);
-        t.clear();
+        return temp;
     }
-}
-    vector<int> rightSideView(TreeNode* root) {
-        vector<vector<int>> v;
-   answer(v,root);
-   vector<int> ans;
-   for(int i=0;i<v.size();i++)
-   {
-       ans.push_back(v[i][v[i].size()-1]);
-   }
-   return ans;
-    }
-};
