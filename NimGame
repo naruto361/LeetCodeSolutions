@@ -1,0 +1,7 @@
+bool canWinNim(int n) {
+        return n%4!=0;
+    }
+// represent n as sum of 1 and 3 numbers
+// return 1 if odd number of terms are used
+// if(n%4==0) then we need to use even terms 
+// then answer is zero
