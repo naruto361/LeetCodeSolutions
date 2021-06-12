@@ -1,0 +1,17 @@
+TreeNode* sortedListToBST(ListNode* head) {
+        if(head==NULL) return NULL;
+        if(head->next==NULL) return new TreeNode(head->val);
+        ListNode *slow=head,*fast=head;
+        ListNode *mid=slow;
+        while(fast && fast->next)
+        {
+            mid=slow;
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        mid->next=NULL;
+        TreeNode *curr=new TreeNode(slow->val);
+        curr->left=sortedListToBST(head);
+        curr->right=sortedListToBST(slow->next);
+        return curr;
+    }
