@@ -1,0 +1,34 @@
+class Solution {
+private:
+    bool issub(string x,string y)
+    {
+        int i=0,j=0;
+        while(i<x.length() && j<y.length())
+        {
+            if(x[i]==y[j]) i++,j++;
+            else j++;
+            if(i==x.length()) return 1;
+        }
+        return 0;
+    }
+public:
+    int maximumRemovals(string s, string p, vector<int>& removable) {
+        int start=0,end=removable.size();
+        while(start<end)
+        {
+            int mid=(start+end)/2;
+            //cout<<mid<<" ";
+            string t=s;
+            int l=0;
+            for(int &i:removable)
+            {
+                t[i]='-';
+                l++;
+                if(l>mid) break;
+            }
+            if(issub(p,t)) start=mid+1;
+            else end=mid;
+        }
+        return start;
+    }
+};
