@@ -1,0 +1,38 @@
+3 methods 
+1. Recursion
+2. Queue Implementation
+3. Iterative
+
+class Solution {
+public:
+    int findTheWinner(int n, int k) {
+        // if(n==1) return 1;
+        // return (findTheWinner(n-1,k)+k-1)%n + 1;
+        //we use queue to know the next person in the curcular order
+        //first push all the persons to queue
+//         queue<int> q;
+//         for(int i=1;i<=n;i++)
+//         {
+//             q.push(i);
+//         }
+        
+//         //we play the game until one left
+//         while(q.size()>1)
+//         {
+//             int canSkip=(k%q.size()==0) ? q.size()-1 : k%q.size()-1;
+//             //push the people from 1 to k-1 to the back of the queue
+//             for(int i=1;i<=canSkip;i++)
+//             {
+//                 q.push(q.front());
+//                 q.pop();
+//             }
+//             //the person now at the front of the queue is gonna lose the game
+//             q.pop();
+//         }
+//         return q.front();
+        int res = 0;
+        for (int i = 1; i <= n; ++i)
+            res = (res + k) % i;
+        return res + 1;
+    }
+};
