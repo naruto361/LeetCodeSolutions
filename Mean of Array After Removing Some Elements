@@ -1,0 +1,12 @@
+class Solution {
+public:
+    double trimMean(vector<int>& arr) {
+        sort(arr.begin(),arr.end());
+        int l=arr.size();
+        int k=l/20;
+        double sum=0;
+        for(int i=k;i<l-k;i++) sum+=arr[i];
+        double s=l-2*k;
+        return sum/s;
+    }
+};
