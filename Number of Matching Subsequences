@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int numMatchingSubseq(string s, vector<string>& words) {
+        int ans=0;
+        vector<vector<int>> v(26);
+        int k=0;
+        for(auto &c:s) v[c-'a'].push_back(k++);
+        for(auto &i:words)
+        {
+            int x=-1;
+            bool ok=true;
+            for(char &c:i)
+            {
+                auto it=upper_bound(v[c-'a'].begin(),v[c-'a'].end(),x);
+                if(it==v[c-'a'].end()) {ok=false;break;}
+                x=*it;
+            }
+            if(ok) ans++;
+        }
+        return ans;
+    }
+};
