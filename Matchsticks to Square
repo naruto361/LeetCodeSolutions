@@ -1,0 +1,31 @@
+class Solution {
+private:
+    bool dfs(vector<int> &a,vector<int> &v,int idx)
+    {
+        if(idx==a.size())
+            return v[0]==v[1] && v[1]==v[2] && v[2]==v[3] && v[3]==0;
+        for(int i=0;i<4;i++)
+        {
+            if(a[idx]>v[i]) continue;
+            v[i]-=a[idx];
+            if(dfs(a,v,idx+1)) return 1;
+            v[i]+=a[idx];
+        }
+        return 0;
+    }
+public:
+    bool makesquare(vector<int>& matchsticks) {
+        if(matchsticks.size()<4) return false;
+        long long sum=0;
+        for(auto &i:matchsticks) sum+=i;
+        if(sum%4!=0) return false;
+        sort(matchsticks.rbegin(),matchsticks.rend());
+        int side=sum/4;
+        for(auto i:matchsticks)
+        {
+            if(i>side) return 0;
+        }
+        vector<int> v(4,side);
+        return dfs(matchsticks,v,0);
+    }
+};
