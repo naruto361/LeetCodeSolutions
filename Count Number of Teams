@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int numTeams(vector<int>& rating) {
+        int ans=0;
+        for(int i=1;i<rating.size();i++)
+        {
+            int inc1=0,inc3=0,dec1=0,dec3=0;
+            for(int j=0;j<rating.size();j++)
+            {
+                if(j<i)
+                {
+                    if(rating[i] > rating[j]) inc1++;
+                    else if(rating[i] < rating[j]) dec1++;
+                }
+                else if(j>i)
+                {
+                    if(rating[j] > rating[i]) inc3++;
+                    else if(rating[i] > rating[j]) dec3++;
+                }
+            }
+            ans+= inc1*inc3 + dec1*dec3;
+        }
+        return ans;
+    }
+};
