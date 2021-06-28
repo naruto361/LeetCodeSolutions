@@ -1,13 +1,31 @@
 class Solution {
 public:
-    string removeDuplicates(string S) {
-        int k=1;
-        for(int i=1;i<S.length();i++)
+    string removeDuplicates(string s) {
+        stack<pair<char,int>> st;
+        for(int i=0;i<s.length();i++)
         {
-            if(S[i]==S[i-1]) {k=-1;S.erase(i-1,2);}
+            if(st.empty()) st.push({s[i],1});
+            else 
+            {
+                if(s[i]==st.top().first) 
+                {
+                    st.top().second++;
+                    if(st.top().second==2) st.pop();
+                }
+                else st.push({s[i],1});
+            }
         }
-        
-        if(k==1) return S;
-        else return removeDuplicates(S);
+        string ans;
+        while(!st.empty())
+        {
+            int k=st.top().second;
+            while(k--)
+            {
+                ans+=st.top().first;
+            }
+            st.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
     }
 };
