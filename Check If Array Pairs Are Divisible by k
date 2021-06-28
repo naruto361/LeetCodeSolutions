@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool canArrange(vector<int>& arr, int k) {
+        int mini=INT_MAX;
+        for(int &i:arr)
+        {
+            if(i<mini) mini=i;
+        }if(mini>=0) mini=0;
+        if(mini<0) 
+        {
+            mini=-mini;
+            int t=mini%k;
+            mini+=k-t;
+        }
+        
+        vector<int> r(k+1,0);
+        for(int &i:arr) r[(i+mini)%k]++;//cout<<(i+mini)%k<<" ";//
+        int i=1,j=k-1;
+        if(r[0]&1) return false;
+        while(i<j)
+        {
+            if(r[i]!=r[j]) return false;
+            i++;j--;
+        }
+        return true;
+    }
+};
