@@ -1,0 +1,24 @@
+
+/******** 
+https://leetcode.com/problems/maximum-sum-circular-subarray/discuss/178422/One-Pass
+(see figure in this)
+********/
+
+class Solution {
+public:
+    int maxSubarraySumCircular(vector<int>& nums) {
+        if(nums.size()==1) return nums[0];
+        int sum=0;
+        int curr_min=0,worst=nums[0];
+        int curr_max=0,best=nums[0];
+        for(int &i:nums)
+        {
+            sum+=i;
+            curr_min=min(curr_min+ i ,i);
+            worst=min(worst,curr_min);
+            curr_max=max(curr_max+i,i);
+            best=max(best,curr_max);
+        }
+        return best>0 ?max(sum-worst,best):best;
+    }
+};
