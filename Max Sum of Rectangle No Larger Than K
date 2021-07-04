@@ -1,0 +1,46 @@
+class Solution {
+private:
+    int kadane(vector<int> &s)
+    {
+        int sum=s[0],best=s[0];
+        for(int i=1;i<s.size();i++)
+        {
+            sum=max(sum+s[i],s[i]);
+            best=max(best,sum);
+        }
+        return best;
+    }
+public:
+    int maxSumSubmatrix(vector<vector<int>>& matrix, int k) {
+        int maxi=INT_MIN,m=matrix.size(),n=matrix[0].size();
+        for(int i=0;i<n;i++)
+        {
+            vector<int> s(m,0);
+            for(int j=i;j<n;j++)
+            {
+                for(int p=0;p<m;p++)
+                {
+                    s[p]+=matrix[p][j];
+                }
+                int a=kadane(s);
+                cout<<a<<' ';
+                if(a<=k)
+                {
+                    if(a>maxi) maxi=a;
+                    continue;
+                }
+                set<int> st = {0};
+                int run_sum = 0;
+                for (int sum : s) {
+                    run_sum += sum;
+                    auto it = st.lower_bound(run_sum - k);
+                    if (it != end(st))
+                        maxi = max(maxi, run_sum - *it);
+                    st.insert(run_sum);
+                }
+            }
+            cout<<'\n';
+        }
+        return maxi;
+    }
+};
