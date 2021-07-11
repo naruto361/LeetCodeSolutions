@@ -1,0 +1,22 @@
+// for each character, we count unique characters between its first and last occurence. That is the number of palindromes we can form with that character.
+class Solution {
+public:
+    int countPalindromicSubsequence(string s) {
+        vector<int> ff(26,1e9);
+        vector<int> ss(26,-1);
+        for(int i=0;i<s.length();i++)
+        {
+            if(ff[s[i]-'a']==1e9) ff[s[i]-'a']=i;
+            ss[s[i]-'a']=i;
+        }
+        int ans=0;
+        for(int i=0;i<26;i++)
+        {
+            if(ff[i]==1e9 || ff[i]==ss[i]) continue;
+            unordered_set<char> st;
+            for(int j=ff[i]+1;j<ss[i];j++) st.insert(s[j]);
+            ans+=st.size();
+        }
+        return ans;
+    }
+};
