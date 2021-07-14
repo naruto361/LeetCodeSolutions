@@ -1,16 +1,12 @@
 class Solution {
 public:
     vector<int> singleNumber(vector<int>& nums) {
-        vector<int>ans;
-        sort(nums.begin(),nums.end());
-        if(nums.size()==1) return nums;
-        if(nums.size()>1)
-        if(nums[0]!=nums[1]) ans.push_back(nums[0]);
-        for(int i=1;i<nums.size()-1;i++)
+        map<int,bool> mp;
+        for(auto &i:nums)
         {
-            if(nums[i]!=nums[i-1] && nums[i]!=nums[i+1]) ans.push_back(nums[i]);
+            if(s.find(i)==s.end()) s.insert(i);
+            else s.erase(i);
         }
-        if(nums[nums.size()-1]!=nums[nums.size()-2]) ans.push_back(nums[nums.size()-1]);
-        return ans;
+        return {*s.begin(),*(++s.begin())};
     }
 };
