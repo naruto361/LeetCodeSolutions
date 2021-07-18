@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int addRungs(vector<int>& rungs, int dist) {
+        if(dist==1)
+        {
+            int ans=max(0,rungs[0]-1);
+            for(int i=1;i<rungs.size();i++)
+            {
+                ans+=(rungs[i]-rungs[i-1]-1);
+            }
+            return ans;
+        }
+        int ans=0;
+        if(rungs[0]>dist)
+        {
+            ans+=(rungs[0]-1)/dist;
+        }
+        for(int i=1;i<rungs.size();i++)
+        {
+            if(rungs[i]-rungs[i-1] > dist)
+            ans+=(rungs[i]-rungs[i-1]-1)/dist;
+        }
+        return ans;
+    }
+};
