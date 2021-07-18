@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int canBeTypedWords(string text, string brokenLetters) {
+        vector<string> v;
+        string s;
+        int f[26]={0};
+        for(auto &i:brokenLetters)
+        {
+            f[i-'a']++;
+        }
+        bool ok=true;
+        
+        int ans=0;
+        for(int i=0;i<text.size();i++)
+        {
+            if(text[i]==' ')
+            {
+                if(ok) ans++;
+                v.push_back(s);
+                s.clear();
+                ok=true;
+            }
+            else
+            {
+                if(f[text[i]-'a']>0) 
+                {
+                    ok=false;
+                }
+            }
+        }
+        v.push_back(s);
+        s.clear();
+        if(ok==true) ans++;
+        return ans;
+    }
+};
