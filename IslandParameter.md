@@ -1,3 +1,4 @@
+```
 int check(int i,int j,vector<vector<int>> &grid)
     {
         int k=4;
@@ -19,3 +20,4 @@ int check(int i,int j,vector<vector<int>> &grid)
         }
         return ans;
     }
+```
