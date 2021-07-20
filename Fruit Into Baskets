@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        int ans=0,best=0;
+        int x=-1,y=-1,f=0;
+        for(int &i:fruits)
+        {
+            if(i==x || i==y) ans++;
+            else ans=f+1;
+            
+            if(i==y)
+            {
+                f++;
+            }
+            else
+            {
+                x=y;
+                y=i;
+                f=1;
+            }
+            
+            best=max(best,ans);
+        }
+        return best;
+    }
+};
