@@ -20,3 +20,22 @@ public:
         return s;
     }
 };
+/****************************************************/
+class Solution {
+public:
+    string largestNumber(vector<int>& nums) {
+        for(int i=0;i<nums.size();i++)
+        {
+            for(int j=i+1;j<nums.size();j++)
+            {
+                if(to_string(nums[i])+to_string(nums[j]) < 
+                   to_string(nums[j])+to_string(nums[i]))
+                    swap(nums[i],nums[j]);
+            }
+        }
+        if(nums[0]==0) return "0";
+        string ans;
+        for(int &i:nums) ans+=to_string(i);
+        return ans;
+    }
+};
