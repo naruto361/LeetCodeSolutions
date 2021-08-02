@@ -1,0 +1,25 @@
+class MyCalendar {
+public:
+    MyCalendar() {
+        
+    }
+    vector<pair<int,int>> books;
+    bool book(int start, int end) {
+        for (auto &i:books)
+        {
+            if(start>=i.first && end<=i.second) return false;
+            if(start<=i.first && end>=i.second) return false;
+            if(start>=i.first && start<i.second) return false;
+            if(end>i.first && end<=i.second) return false;
+        }
+            //if (max(p.first, start) < min(end, p.second)) return false;
+        books.push_back({start, end});
+        return true;
+    }
+};
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar* obj = new MyCalendar();
+ * bool param_1 = obj->book(start,end);
+ */
