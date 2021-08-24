@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string longestWord(vector<string>& words) {
+        sort(words.begin(),words.end());
+        unordered_map<string,bool> mp;
+        string ans;
+        int maxl=-1;
+        for(auto &i:words)
+        {
+            if(i.length()==1 && maxl!=-1)
+            {mp[i]=true;continue;}
+            if(i.length()==1 && maxl==-1)
+            {
+                maxl=1;
+                ans=i;
+                mp[i]=true;
+                continue;
+            }
+            int l=i.length();
+            string s=i.substr(0,l-1);
+            if(mp.find(s)!=mp.end()) mp[i]=true;
+            if(mp.find(s)!=mp.end() && l>maxl)
+            {
+                maxl=l;
+                ans=i;
+            }
+        }
+        return ans;
+    }
+};
