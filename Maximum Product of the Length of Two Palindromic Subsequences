@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int lps(string s)
+    {
+        if(s.length()<2) return s.length();
+        int l=s.length();
+        vector<vector<int>> dp(l,vector<int> (l,0));
+        int maxi=1;
+        for(int i=0;i<l;i++)
+        {
+            dp[i][i]=1;
+        }
+        for(int i=0;i<l-1;i++)
+        {
+            if(s[i]==s[i+1]) dp[i][i+1]=2,maxi=2;
+            else dp[i][i+1]=1;
+        }
+        for(int i=l-2;i>=0;i--)
+        {
+            for(int j=i+2;j<l;j++)
+            {
+                if(s[i]==s[j])
+                {
+                    dp[i][j]=2+dp[i+1][j-1];
+                }
+                else
+                {
+                    dp[i][j]=max(dp[i][j-1],dp[i+1][j]);
+                }
+                maxi=max(maxi,dp[i][j]);
+            }
+        }
+        return maxi;
+    }
+    int maxProduct(string s) {
+        if(s.length() ==2) return 1;
+    int l=s.length();
+        int ans=0;
+        for(int i=0;i<(1<<l);i++)
+        {
+            string k1,k2;
+            for(int j=0;j<s.length();j++)
+            {
+                if(i & (1<<j)) k1+=s[j];
+                else k2+=s[j];
+            }
+            int p1=lps(k1);
+            int p2=lps(k2);
+            ans=max(ans,p1*p2);
+        }
+        return ans;
+    }
+    
+};
