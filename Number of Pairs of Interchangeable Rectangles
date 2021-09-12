@@ -1,0 +1,20 @@
+class Solution {
+public:
+    long long interchangeableRectangles(vector<vector<int>>& rectangles) {
+        map<double,long long int> mp;
+        for(auto &i:rectangles)
+        {
+            double k=(double)i[0] / (double)i[1];
+            mp[k]++;
+        }
+        long long ans=0;
+        for(auto &i:mp)
+        {
+            if(i.second>1)
+            {
+                ans+=((i.second)*(i.second -1))/2;
+            }
+        }
+        return ans;
+    }
+};
