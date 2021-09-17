@@ -1,0 +1,40 @@
+bool sortbyfunc(pair<char,vector<int>> &a,pair<char,vector<int>> &b)
+{
+    for(int i=0;i<26;i++)
+    {
+        if(a.second[i]>b.second[i]) return true;
+        else if(a.second[i]<b.second[i]) return false;
+        // else continue;
+    }
+    return a.first<b.first;
+}
+class Solution {
+public:
+    
+    string rankTeams(vector<string>& votes) {
+        if(votes.size()==1) return votes[0];
+        vector<pair<char,vector<int> >> v;
+        vector<vector<int>> f(26,vector<int> (26,0));
+        map<char,bool> mp;
+        for(auto &i:votes)
+        {
+            for(int j=0;j<i.length();j++)
+            {
+                f[i[j]-'A'][j]++;
+                mp[i[j]] = true;
+            }
+        }
+        for(int i=0;i<26;i++)
+        {
+            v.push_back({i+'A',f[i]});
+        }
+        sort(v.begin(),v.end(),sortbyfunc);
+        string ans;
+        for(auto &i:v)
+        {
+            if(mp.find(i.first)!=mp.end())
+            ans += i.first;
+        }
+        return ans;
+    }
+};
