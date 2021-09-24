@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int>> dp;
+    int solve(vector<int>& nums, vector<int>& multipliers,int l,int r,int idx)
+    {
+        int  n =nums.size() , m = multipliers.size();
+        if(l>r || idx >=m || l>=n || r<0) return 0;
+        if(dp[l][idx] != -1) return dp[l][idx];
+        int p = multipliers[idx];
+        int x = nums[l]*p + solve(nums , multipliers , l+1 , r , idx +1);
+        int y = nums[r]*p + solve(nums , multipliers , l , r-1 , idx +1);
+        return dp[l][idx] = max (x,y);
+        
+    }
+    int maximumScore(vector<int>& nums, vector<int>& multipliers) {
+        int l = 0 , r = nums.size()-1 , idx = 0 ;
+        int m=multipliers.size();
+        dp.resize(m,vector<int> (m,-1));
+        return solve(nums,multipliers, l ,r ,idx );
+    }
+};
