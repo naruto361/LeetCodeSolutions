@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<int> twoOutOfThree(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3) {
+        vector<int> f1(101,0),f2(101,0),f3(101,0);
+        for(auto &i:nums1) f1[i]=1;
+        for(auto &i:nums2) f2[i]=1;
+        for(auto &i:nums3) f3[i]=1;
+        vector<int> ans;
+        for(int i=1;i<=100;i++)
+        {
+            if((f1[i]+f2[i]+f3[i]) >=2) ans.push_back(i);
+        }
+        return ans;
+    }
+};
