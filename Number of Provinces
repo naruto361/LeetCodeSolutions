@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<vector<int>> v;
+    vector<bool> vis;
+    void dfs(int x)
+    {
+        if(vis[x]==true) return;
+        vis[x]=true;
+        for(auto &j:v[x])
+        {
+            if(!vis[j]) dfs(j);
+        }
+    }
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int n=isConnected.size();
+        v.resize(n+1);
+        vis.resize(n+1,false);
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=n;j++)
+            {
+                if(i==j) continue;
+                if(isConnected[i-1][j-1]==1)
+                {
+                    v[i].push_back(j);
+                    //v[j].push_back(i);
+                }
+            }
+        }
+        int cnt = 0;
+        for(int i=1;i<=n;i++)
+        {
+            if(vis[i]==false)
+            {
+                dfs(i);   
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+};
