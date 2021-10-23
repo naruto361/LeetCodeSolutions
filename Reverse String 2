@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string reverseStr(string s, int k) {
+        if(k==1) return s;
+        int l=s.length();
+        int i=0,j=k,x=2*k;
+        while(1)
+        {
+            //cout<<i<<" "<<j<<" "<<x<<" ";
+            if(x<=l)
+            {
+                reverse(s.begin()+i,s.begin()+j);
+                i=x;j=x+k;x=x+2*k;
+            }
+            else if(j>l && i<l)
+            {
+                reverse(s.begin()+i,s.end());
+                return s;
+            }
+            else
+            {
+                reverse(s.begin()+i,s.begin()+j);
+                return s;
+            }
+            //cout<<s<<'\n';
+        }
+        return s;
+    }
+};
