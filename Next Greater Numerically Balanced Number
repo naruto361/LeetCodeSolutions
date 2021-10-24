@@ -1,0 +1,61 @@
+class Solution {
+public:
+    void solve(vector<string> &ans,string nums,int idx)
+    {
+        if(idx>=nums.length()-1) {
+            ans.push_back(nums);
+            return ;
+        }
+        for(int j=idx;j<nums.length();j++)
+        {
+            swap(nums[j],nums[idx]);
+            solve(ans,nums,idx+1);
+            swap(nums[j],nums[idx]);
+        }
+    }
+    vector<string> permute(string &nums) {
+        vector<string> ans;
+        solve(ans,nums,0);
+        return ans;
+    }
+    int nextBeautifulNumber(int n) {
+        if(n==0) return 1;
+        if(n<22) return 22;
+        int mini=1e9;
+        vector<string> t={"1","22","333","4444","55555","666666"};
+        for(int i=0;i<6;i++)
+        {
+            int z=stoi(t[i]);
+            if(z>n) {mini=z;break;}
+        }
+        for(int i=0;i<3;i++)
+        {
+            for(int j=i+1;(i+j)<=5;j++)
+            {
+                string k=t[i]+t[j];
+                vector<string> temp=permute(k);
+                for(int x=0;x<temp.size();x++)
+                {
+                    int p=0;
+                    for(auto &y:temp[x])
+                        p=p*10 + (y-'0');
+                    if(p>n && p<mini) mini=p;
+                }
+                
+            }
+        }
+        string y="122333";
+        vector<string> temp=permute(y);
+                for(int x=0;x<temp.size();x++)
+                {
+                    int p=0;
+                    for(auto &y:temp[x])
+                        p=p*10 + (y-'0');
+                    if(p>n && p<mini) mini=p;
+                }
+        if(1666666>n && 1666666<mini) mini=1666666;
+        if(1224444>n && 1224444<mini) mini=1224444;
+        
+        return mini;
+    }
+};
