@@ -1,0 +1,92 @@
+class Solution {
+public:
+    int countValidWords(string sentence) {
+        vector<string> v;
+        int i=0;
+        string temp;
+        string s=sentence;
+        int l=s.length();
+        while(i<s.length())
+        {
+            while(i<l && s[i]==' ')
+            {
+                i++;
+                continue;
+            }
+            if(i==l) break;
+            while(i<l && s[i]!=' ')
+            {
+                temp+=s[i++];
+            }
+            v.push_back(temp);
+            temp.clear();
+        }
+        int ans =0;
+        for(auto &i:v)
+        {
+            //cout<<i<<" ";
+            int ok=true;
+            int punc=0,dig=0,hyp=0;
+            int puncidx=-1;
+            int diff=0;
+            for(int j=0;j<i.length();j++)
+            {
+                // if(!islower(i[j])) diff++;
+                // if(diff>1)
+                // {
+                //     ok=false;break;
+                // }
+                if(i[j]>='0' && i[j]<='9') 
+                {
+                    ok=false;break;
+                }
+                if(i[j]=='-')
+                {
+                    hyp++;
+                    if(j==0 || j==i.length()-1)
+                    {
+                        ok=false;
+                        break;
+                    }
+                    if(!islower(i[j-1]) || !islower(i[j+1]))
+                    {
+                        ok=false;
+                        break;
+                    }
+                    if(hyp>1)
+                    {
+                        ok=false;
+                        break;
+                    }
+                }
+                if(i[j]=='!')
+                {
+                    if(j!= i.length()-1)
+                    {
+                        ok=false;
+                        break;
+                    }
+                }
+                if(i[j]=='.')
+                {
+                    if(j!= i.length()-1)
+                    {
+                        ok=false;
+                        break;
+                    }
+                }
+                if(i[j]==',')
+                {
+                    if(j!= i.length()-1)
+                    {
+                        ok=false;
+                        break;
+                    }
+                }
+            }
+            //cout<<ok<<'\n';
+            if(ok) ans ++;
+        }
+        return ans;
+    }
+};
