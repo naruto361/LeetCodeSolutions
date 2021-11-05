@@ -1,14 +1,22 @@
 class Solution {
 public:
     int arrangeCoins(int n) {
-        long long int i=1;
-        while(1)
+        
+        if(n<=2) return 1;
+        int l=1,h=65535;
+        while(l<h)
         {
-            long long int k=((i)*(i+1))/2;
-            if(k<n) i++;
-            else if(k==n) return i;
-            else break;
+            long long mid = h- (h-l)/2;
+            long long k =(mid * (mid+1))/2;
+            if(k <= n)
+            {
+                l=mid;
+                
+            }
+            else h=mid-1;
+            
         }
-        return i-1;
+        return l;
+        
     }
 };
