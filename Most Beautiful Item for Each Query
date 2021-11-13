@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<int> maximumBeauty(vector<vector<int>>& items, vector<int>& queries) {
+        vector<int> ans;
+        vector<int> v;
+        unordered_map<int,int> mp;
+        for(auto &i:items)
+        {
+            if(mp.find(i[0])!=mp.end())
+            {
+                mp[i[0]] = max(mp[i[0]],i[1]);
+            }
+            else mp[i[0]] = i[1];
+        }
+        for(auto &i:mp)
+        {
+            v.push_back(i.first);
+        }
+        sort(v.begin(),v.end());
+        
+        unordered_map<int,int> temp;
+        int maxi=0;
+        for(auto &i:v)
+        {
+            maxi = max(mp[i],maxi);
+            temp[i]=maxi;
+        }
+        // for(auto &i:v)
+        // {
+        //     cout<<i<<" "<<mp[i]<<" "<<temp[i]<<" \n";
+        // }
+        for(auto &i:queries)
+        {
+            if(i<v[0])
+            {
+                ans.push_back(0);
+                continue;
+            }
+            else if(i>v[v.size()-1])
+            {
+                ans.push_back(temp[v.back()]);
+                continue;
+            }
+            auto it=lower_bound(v.begin(),v.end(),i);
+            int j=*it;
+            if(j>i)
+            {
+                --it;
+                j=*it;
+            }
+            //cout<<i<<" "<<j<<'\n';
+            ans.push_back(temp[j]);
+        }
+        return ans;
+    }
+};
