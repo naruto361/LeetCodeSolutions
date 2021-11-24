@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool PredictTheWinner(vector<int>& nums) {
+        int n=nums.size();
+        if(n<3) return true;
+        vector<vector<pair<int,int>>> dp(n,vector<pair<int,int>> (n,{0,0}));
+        for(int i=0;i<n;i++) {dp[i][i].first=nums[i];dp[i][i].second=0;}
+        for(int i=n-2;i>=0;i--)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                dp[i][j].first = max(dp[i+1][j].second+nums[i],dp[i][j-1].second+nums[j]);
+                dp[i][j].second = ((dp[i][j].first==dp[i+1][j].second+nums[i]) ? dp[i+1][j].first : dp[i][j-1].first);
+            }
+        }
+        // for(int i=0;i<n;i++)
+        // {
+        //     for(int j=0;j<n;j++)
+        //     {
+        //         cout<<dp[i][j].first<<","<<dp[i][j].second<<' ';
+        //     }
+        //     cout<<'\n';
+        // }
+        if(dp[0][n-1].second>dp[0][n-1].first) return false;
+        return true;
+    }
+};
