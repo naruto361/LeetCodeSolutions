@@ -17,3 +17,13 @@ public:
         return false;
     }
 };
+
+/////////////////////////////////////////
+        int m=matrix.size() , n=matrix[0].size();
+        for(int i=0;i<m;i++)
+        {
+            if(matrix[i][0]>target) return false;
+            if(matrix[i][n-1]<target) continue;
+            if(binary_search(matrix[i].begin(),matrix[i].end(),target)) return true;
+        }
+        return false;
