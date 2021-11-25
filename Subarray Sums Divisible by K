@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+        // handles only +ve numbers
+        // int sum=0,ans=0;
+        // unordered_map<int,int> rem;
+        // rem[0]=1;
+        // for(auto &i:nums)
+        // {
+        //     sum += i;
+        //     if(rem.find(sum%k)!=rem.end()) ans += rem[sum%k];
+        //     rem[sum%k]++;
+        //     cout<<sum<<" "<<sum%k<<" "<<rem[sum%k]<<'\n';
+        // }
+        // return ans;
+        
+        // handles all
+        int sum=0,ans=0;
+        unordered_map<int,int> rem;
+        rem[0]=1;
+        for(auto &i:nums)
+        {
+            sum += i;
+            int temp=sum%k;
+            if(temp<0) temp+=k;
+            if(rem.find(temp)!=rem.end()) ans += rem[temp];
+            rem[temp]++;
+            cout<<sum<<" "<<sum%k<<" "<<rem[temp]<<'\n';
+        }
+        return ans;
+        
+    }
+};
