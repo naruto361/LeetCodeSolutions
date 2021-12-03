@@ -1,0 +1,47 @@
+class Solution {
+public:
+    map<char,int> mp;
+    map<char,int> check;
+    bool ok()
+    {
+        for(auto &i:mp)
+        {
+            if(check.find(i.first)==check.end()) return false;
+            if(check[i.first]<i.second) return false;
+        }
+        return true;
+    }
+    string minWindow(string s, string t) {
+        if(t.length()>s.length()) return "";
+        if(s==t) return s;
+        for(char c:t) mp[c]++;
+        int x=0,y=0;
+        int lx=-1,ly=-1;
+        int len=INT_MAX;
+        for(char c:s)
+        {
+            check[c]++;
+            while(x<=s.length()-t.length() && ok())
+            {
+                //cout<<x<<" "<<y<<'\n';
+                if(y-x+1<=len)
+                {
+                    len=y-x+1;
+                    lx=x;
+                    ly=y;
+                }
+                char f=s[x];
+                check[f]--;
+                x++;
+                //cout<<x<<" ";
+            }
+            y++;
+            
+        }
+        if(lx==-1 || ly==-1) return "";
+        string temp;
+        for(int i=lx;i<=ly;i++) temp+=s[i];
+        return temp;
+        
+    }
+};
