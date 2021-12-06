@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool ok(int mid,int m,int n,int k)
+    {
+        int cnt=0;
+        for(int i=1;i<=m;i++)
+        {
+            cnt+=min(n,mid/i);
+        }
+        return cnt>=k;
+    }
+    int findKthNumber(int m, int n, int k) {
+        int l=1,h=m*n;
+        while(l<h)
+        {
+            int mid = l+(h-l)/2;
+            if(ok(mid,m,n,k)) h=mid;
+            else l=mid+1;
+        }
+        return h;
+        
+    }
+};
