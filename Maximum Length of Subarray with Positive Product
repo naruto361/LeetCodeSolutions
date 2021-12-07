@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int solve(vector<int> &nums,int f,int l)
+    {
+        vector<int> neg;
+        for(int i=f;i<=l;i++)
+        {
+            if(nums[i]<0)
+            {
+                neg.push_back(i);
+            }
+        }
+        // for(auto &i:neg) cout<<i<<" ";
+        // cout<<'\n';
+        int n=neg.size();
+        if(n%2==0) return l-f+1;
+        //cout<<neg[n-1]-f<<" "<<l-neg[0]<<'\n';
+        return max( neg[n-1]-f,l-neg[0] );
+        
+    }
+    int getMaxLen(vector<int>& nums) {
+        
+        int maxi=0;
+        int f=0,l=0;
+        int i=0;
+        while(i<nums.size() && nums[i]==0)
+        {
+            i++;
+        }
+        if(i==nums.size()) return 0;
+        f=i;
+        for(;i<nums.size();i++)
+        {
+            if(nums[i]==0)
+            {
+                l=i-1;
+                maxi=max(maxi,solve(nums,f,l));
+                f=i+1;
+            }
+        }
+            maxi=max(maxi,solve(nums,f,nums.size()-1));
+        return maxi;
+    }
+};
