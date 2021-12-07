@@ -1,19 +1,38 @@
+1. recursion and backtracking
+2. bit manipulation
 class Solution {
 public:
-    vector<vector<int>> subsets(vector<int>& nums) {
-        int n = nums.size();
-        vector<vector<int>> res;
-        res.push_back({});
-        for(int i=0;i<n;i++)
+    void solve(vector<vector<int>> &ans,vector<int> &temp,vector<int> &nums,int idx)
+    {
+        if(idx==nums.size())
         {
-            auto l = res.size();
-            for(int j = 0;j<l;j++)
-            {
-                auto v = res[j];
-                v.push_back(nums[i]);
-                res.push_back(v);
-            }
+            ans.push_back(temp);
+            return ;
         }
-        return res;
+        solve(ans,temp,nums,idx+1);
+        temp.push_back(nums[idx]);
+        solve(ans,temp,nums,idx+1);
+        temp.pop_back();
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        // int n=nums.size();
+        // vector<vector<int>> ans;
+        // for(int i=0;i<(1<<n);i++)
+        // {
+        //     vector<int> temp;
+        //     for(int j=0;j<n;j++)
+        //     {
+        //         if(i&(1<<j))
+        //         {
+        //             temp.push_back(nums[j]);
+        //         }
+        //     }
+        //     ans.push_back(temp);
+        // }
+        // return ans;
+        vector<vector<int>> ans;
+        vector<int> temp;
+        solve(ans,temp,nums,0);
+        return ans;
     }
 };
