@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int numTilings(int n) {
+        if(n<3) return n;
+        if(n==3) return 5;
+        int f[n+1];
+        f[1]=1;
+        f[2]=2;
+        f[3]=5;
+        int mod=1000000007;
+        for(int i=4;i<=n;i++)
+        {
+            f[i]=((2*f[i-1])%mod + f[i-3]%mod)%mod;
+        }
+        return f[n];
+    }
+};
