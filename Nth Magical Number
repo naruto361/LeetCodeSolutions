@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int mod=1e9+7;
+    long long lcm;
+    bool check(long long mid,int n,int a,int b)
+    {
+        long long k = mid/a + mid/b - mid/lcm;
+        if(k>=n) return true;
+        return false;
+    }
+    int nthMagicalNumber(int n, int a, int b) {
+        long long l=1,h=1e18+1;
+        long long ans = h;
+        lcm=(1LL*a*b)/__gcd(a,b);
+        while(l<h)
+        {
+            long long mid = l+(h-l)/2;
+                if(check(mid,n,a,b))
+                {
+                    h=mid;
+                    ans=min(ans,mid);
+                }
+                else l=mid+1;
+        }
+        return ans%mod;
+    }
+};
