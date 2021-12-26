@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        // int one=INT_MAX,two=INT_MAX;
+        // for(auto &i:nums)
+        // {
+        //     if(i<=one) one=i;
+        //     else if(i<=two) two=i;
+        //     else return true;
+        // }
+        // return false;
+        // left , mid , right
+        int left=INT_MAX,mid=INT_MAX;
+        for(auto &i:nums)
+        {
+            if(i>mid) return true;
+            else if(i<mid && i>left) mid=i;
+            else if(i<left) left=i;
+            //cout<<left<<" "<<mid<<" "<<i<<"\n";
+        }
+        return false;
+    }
+};
