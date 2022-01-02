@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int numberOfBeams(vector<string>& bank) {
+        vector<int> num;
+        for(auto &i:bank)
+        {
+            int x=0;
+            for(char c:i)
+                if(c=='1') x++;
+            if(x==0) continue;
+            num.push_back(x);
+        }
+        if(num.size()<2) return 0;
+        int ans =0;
+        for(int i=0;i<num.size()-1;i++)
+        {
+            ans += num[i]*num[i+1];
+        }
+        return ans;
+    }
+};
