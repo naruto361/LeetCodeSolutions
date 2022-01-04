@@ -2,6 +2,24 @@ class Solution {
 public:
     int bitwiseComplement(int n) {
         if(n==0) return 1;
+        int ans =0;
+        int idx=0;
+        while(n>0)
+        {
+            if(n%2==0) ans+=(1<<idx);
+            idx++;
+            n=(n>>1);
+        }
+        return ans;
+    }
+};
+
+///////////////////////////////////////////////////////////////////////
+
+class Solution {
+public:
+    int bitwiseComplement(int n) {
+        if(n==0) return 1;
         int b[32]; 
         int i = 0; 
         while (n > 0) 
