@@ -1,20 +1,18 @@
-bool carPooling(vector<vector<int>>& trips, int capacity) {
-        vector<int> v(1001,0);
-        int maxi=0;
+class Solution {
+public:
+    bool carPooling(vector<vector<int>>& trips, int capacity) {
+        vector<int> fill(1001,0);
         for(auto &i:trips)
         {
-            v[i[1]]+=i[0];
-            v[i[2]]-=i[0];
-            maxi=max(maxi,max(i[1],i[2]));
+            fill[i[1]]+=i[0];
+            fill[i[2]]-=i[0];
         }
-        int ans=0;
-        if(v[0]>capacity) return 0;
-        bool ok=true;
-        for(int i=1;i<=maxi;i++)
+        if(fill[0]>capacity) return false;
+        for(int i=1;i<=1000;i++)
         {
-            v[i]+=v[i-1];
-            if(v[i]>capacity) ok=false;
+            fill[i] += fill[i-1];
+            if(fill[i] > capacity) return false;
         }
-        //for(int i=0;i<=maxi;i++) cout<<v[i]<<" ";
-        return ok;
+        return true;
     }
+};
