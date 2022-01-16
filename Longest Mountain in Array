@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int longestMountain(vector<int>& arr) {
+        if(arr.size()<3) return 0;
+        int ans =0;
+        int n=arr.size();
+        for(int i=1;i<n;i++)
+        {
+            int temp=1;
+            int j=i;
+            
+            // 1. INC sequence
+            while(j<n && arr[j]>arr[j-1])
+            {
+                temp++;
+                j++;
+            }
+            int x=j;
+            if(i==j) continue;
+            // 2. DEC sequence
+            while(i!=j && j<n && arr[j]<arr[j-1])
+            {
+                temp++;
+                j++;
+            }
+            if(j==x) continue;
+            if(i!=j && temp>2) 
+            {ans=max(ans,temp);j--;}
+        }
+        return ans;
+    }
+};
