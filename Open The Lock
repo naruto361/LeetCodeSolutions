@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int openLock(vector<string>& deadends, string target) {
+        int steps=0;
+        unordered_map<string,bool> avoid;
+        for(auto &i:deadends) avoid[i]=true;
+        unordered_map<string,bool> vis;
+        vis["0000"]=true;
+        queue<string> q;
+        q.push("0000");
+        if(avoid.find("0000")!=avoid.end()) return -1;
+        while(!q.empty())
+        {
+            //cout<<steps<<" ";
+            int n=q.size();
+            while(n--)
+            {
+                string s=q.front();
+                q.pop();
+                // if(avoid.find(s)!=avoid.end())
+                // {
+                //     continue;
+                // }
+                if(s==target) return steps;
+                for(int i=0;i<4;i++)
+                {
+                    string temp=s;
+                    temp[i]=char((temp[i]-'0'+1)%10 + '0');
+                    if(vis.find(temp)==vis.end() && avoid.find(temp)==avoid.end())
+                    {
+                        q.push(temp);
+                        vis[temp]=true;
+                    }
+                    
+                    temp=s;
+                    temp[i]=char((temp[i]-'0'-1+10)%10 + '0');
+                    if(vis.find(temp)==vis.end() && avoid.find(temp)==avoid.end()) 
+                    {
+                        q.push(temp);
+                        vis[temp]=true;
+                    }
+                }
+            }
+            steps++;
+        }
+        return -1;
+    }
+};
