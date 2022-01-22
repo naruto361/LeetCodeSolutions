@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int numberOfArrays(vector<int>& differences, int lower, int upper) {
+        int sum=0;
+        int l=lower,u=upper;
+        for(auto &i:differences)
+        {
+            sum +=i;
+            upper=min(upper,u-sum);
+            lower=max(lower,l-sum);
+            if(upper<lower) return 0;
+        }
+        if(upper<lower) return 0;
+        return upper-lower+1;
+    }
+};
