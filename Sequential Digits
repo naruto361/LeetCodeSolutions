@@ -11,6 +11,7 @@ public:
             for(int j=i+1;j<=9;j++)
             {
                 temp=temp*10 +j;
+                if(temp>high) break;
                 if(temp>=low && temp<=high)
                     ans.push_back(temp);
             }
