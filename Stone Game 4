@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int solve(int n,vector<int> &dp)
+    {
+        if(dp[n]!=-1) return dp[n];
+        int ans = 0;
+        for(int i=1;i*i<=n;i++)
+        {
+            if(i*i==n) return dp[n]=1;
+            else
+            {
+                if(!solve(n-i*i,dp)) ans =1;
+            }
+        }
+        return dp[n]=ans;
+    }
+    bool winnerSquareGame(int n) {
+        vector<int> dp(100001,-1);
+        solve(n,dp);
+        return dp[n];
+    }
+};
