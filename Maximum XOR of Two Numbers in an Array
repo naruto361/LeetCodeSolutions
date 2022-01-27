@@ -1,0 +1,63 @@
+class Solution {
+public:
+    struct node{
+        node* zero;
+        node* one;
+    };
+    node* root  = new node();
+    void insert(int &nums)
+    {
+        node* ptr=root;
+        for(int i=30;i>=0;i--)
+        {
+            if( (1<<i)&nums )
+            {
+                if(!ptr->one) ptr->one=new node();
+                ptr=ptr->one;
+            }
+            else
+            {
+                if(!ptr->zero) ptr->zero=new node();
+                ptr=ptr->zero;
+            }
+        }
+    }
+    int solve(int &nums)
+    {
+        int res=0;
+        node* ptr=root;
+        for(int i=30;i>=0;i--)
+        {
+            if((1<<i)&nums)
+            {
+                if(ptr->zero)
+                {
+                    ptr=ptr->zero;
+                    res += pow(2,i);
+                }
+                else ptr=ptr->one;
+            }
+            else
+            {
+                if(ptr->one)
+                {
+                    ptr=ptr->one;
+                    res += pow(2,i);
+                }
+                else ptr=ptr->zero;
+            }
+        }
+        return res;
+    }
+    int findMaximumXOR(vector<int>& nums) {
+        for(auto &i:nums) insert(i);
+        int maxi=0;
+        for(auto &i:nums)
+        {
+            int res=solve(i);
+            //cout<<res<<" ";
+            if(res>maxi) maxi=res;
+        }
+        return maxi;
+    }
+};
