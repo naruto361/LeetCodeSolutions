@@ -1,0 +1,67 @@
+class Solution {
+public:
+    struct Node
+    {
+        Node* arr[26];
+        bool end=false;
+    };
+    Node* root;
+    bool find(string &word,Node* root)
+    {
+        Node* temp=root;
+        for(int i=0;i<word.length();i++)
+        {
+            if(temp->arr[word[i]-'a']==NULL) return false;
+            temp=temp->arr[word[i]-'a'];
+        }
+        return temp->end;
+    }
+    void insert(string s,Node* root)
+    {
+        Node* temp=root;
+        for(char &c:s)
+        {
+            if(!temp->arr[c-'a']) temp->arr[c-'a'] = new Node();
+            temp=temp->arr[c-'a'];
+        }
+        temp->end=true;
+    }
+    string replaceWords(vector<string>& dictionary, string sentence) {
+        root=new Node();
+        for(auto &s:dictionary) insert(s,root);
+        vector<string> v;
+        string xx;
+        for(char &c:sentence)
+        {
+            if(c==' ')
+            {
+                v.push_back(xx);
+                xx.clear();
+            }
+            else xx+=c;
+        }
+        if(xx.length()>0) v.push_back(xx);
+        //for(auto &i:v) cout<<i<<" ";
+        string ans ;
+        for(auto &i:v)
+        {
+            string t;
+            bool ok=false;
+            for(char c:i)
+            {
+                t+=c;
+                if(find(t,root)) 
+                {
+                    ans += t;
+                    ok=true;
+                    //cout<<i<<" "<<t<<'\n';
+                    break;
+                }
+            }
+            if(!ok) ans += i;
+            ans+=' ';
+        }
+        ans.pop_back();
+        return ans;
+    }
+};
