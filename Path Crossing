@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool isPathCrossing(string path) {
+       // unordered_
+            map<pair<int,int>,bool> mp;
+        mp[{0,0}]=0;
+        int x=0,y=0;
+        for(char c:path)
+        {
+            if(c=='N')
+            {
+                y++;
+                if(mp.find({x,y})!=mp.end()) return true;
+                mp[{x,y}]=true;
+            }
+            else if(c=='S')
+            {
+                y--;
+                if(mp.find({x,y})!=mp.end()) return true;
+                mp[{x,y}]=true;
+            }
+            else if(c=='E')
+            {
+                x--;;
+                if(mp.find({x,y})!=mp.end()) return true;
+                mp[{x,y}]=true;
+            }
+            else
+            {
+                x++;
+                if(mp.find({x,y})!=mp.end()) return true;
+                mp[{x,y}]=true;
+            }
+        }
+        return false;
+    }
+};
