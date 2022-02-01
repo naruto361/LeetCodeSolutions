@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        vector<vector<int>> dp(k+2,vector<int> (n,INT_MAX));
+        // dp[i][j] dist to j using atmost i edges from src
+        for(int i=0;i<k+2;i++) dp[i][src]=0;
+        for(int i=1;i<k+2;i++)
+        {
+            for(auto &j:flights)
+            {
+                int u=j[0] , v=j[1] , wt=j[2];
+                if(dp[i-1][u]!=INT_MAX) dp[i][v]=min(dp[i][v] , wt+dp[i-1][u]); 
+            }
+        }
+        if(dp[k+1][dst]==INT_MAX) return -1;
+        return dp[k+1][dst];
+    }
+};
