@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int longestBeautifulSubstring(string word) {
+        int ans =0;
+        int temp=0;
+        int j=0;
+        string s="aeiou";
+        int idx=0;
+        while(j<word.length() && word[j]!='a') j++;
+        if(j==word.length()) return 0;
+        for(int i=j;i<word.length();i++)
+        {
+            if( word[i]==s[idx] )
+            {
+                temp++;
+                if(word[i]=='u')
+                    ans=max(ans,temp);
+            }
+            else if(idx+1<5 && word[i]==s[idx+1]) 
+            {
+                temp++;
+                idx++;
+                if(word[i]=='u')
+                    ans=max(ans,temp);
+            }
+            else 
+            {   temp=0;idx=0;
+                 while(i<word.length() && word[i]!='a') i++;
+                 i--;
+            }
+            //cout<<i<<" "<<temp<<" "<<ans<<'\n';
+        }
+        return ans;
+    }
+};
