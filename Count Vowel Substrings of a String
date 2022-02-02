@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool check(string &s)
+    {
+        unordered_map<char,bool> mp;
+        for(char &c:s)
+        {
+            if(c!='a' && c!='e' && c!='i' && c!='o' && c!='u')
+                return false;
+            mp[c]=true;
+        }
+        if(mp.find('a')==mp.end() || mp.find('e')==mp.end() 
+           || mp.find('i')==mp.end() || mp.find('o')==mp.end() ||
+           mp.find('u')==mp.end() ) return false;
+        return true; 
+    }
+    int countVowelSubstrings(string word) {
+        int ans = 0;
+        for(int i=0;i<word.length();i++)
+        {
+            char c=word[i];
+            if(c!='a' && c!='e' && c!='i' && c!='o' && c!='u') continue;
+            string s;
+            for(int j=i;j<word.length();j++)
+            {
+                s+=word[j];
+                if(s.length()>=5)
+                {
+                    if(check(s)) ans++;
+                }
+            }
+        }
+        return ans;
+    }
+};
