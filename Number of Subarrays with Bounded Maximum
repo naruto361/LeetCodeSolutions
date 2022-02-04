@@ -1,18 +1,51 @@
 class Solution {
 public:
     int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {
-        int ans=0,start=0,cnt=0;
-        for(int i=0;i<nums.size();i++)
+    
+    ************************1**********************
+    
+        // int ans=0,start=0,cnt=0;
+        // for(int i=0;i<nums.size();i++)
+        // {
+        //     if(nums[i]>right) start=i+1,cnt=0;
+        //     else if(nums[i]<left)
+        //     {
+        //         ans+=cnt;
+        //     }
+        //     else // b/w left and right
+        //     {
+        //         cnt=i-start+1;
+        //         ans+=cnt;
+        //     }
+        // }
+        // return ans;
+        
+        *******************2******************
+        
+        // next greater and previous greater elements
+        // 1 2 3 4 6 5 5 5 5 6 7
+        // all elements b/w next greater and previous greater will be <=a[i]
+        // so a[i] will be max in them
+        int n=nums.size();
+        stack<int> st;
+        vector<int> nge(n,n);
+        vector<int> pge(n,-1);
+        for(int i=0;i<n;i++)
         {
-            if(nums[i]>right) start=i+1,cnt=0;
-            else if(nums[i]<left)
+            while(!st.empty() && nums[i]>nums[st.top()]) 
             {
-                ans+=cnt;
+                nge[st.top()]=i;
+                st.pop();
             }
-            else // b/w left and right
+            if(!st.empty()) pge[i]=st.top();
+            st.push(i);
+        }
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]>=left && nums[i]<=right)
             {
-                cnt=i-start+1;
-                ans+=cnt;
+                ans += (nge[i]-i)*(i-pge[i]);
             }
         }
         return ans;
