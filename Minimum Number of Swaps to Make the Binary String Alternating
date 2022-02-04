@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int minSwaps(string s) {
+        string s1,s2;
+        //s1 - 101010101........
+        //s2 - 010101010........
+        int l=s.length();
+        int cnt1=0,cnt0=0;
+        for(int i=0;i<l;i++)
+        {
+            if(i&1) s1+='0',s2+='1';
+            else s1+='1',s2+='0';
+            if(s[i]=='0') cnt0++;
+            else cnt1++;
+        }
+        if(abs(cnt1-cnt0)>1) return -1;
+        if(cnt0==cnt1)
+        {
+            int diff1=0,diff2=0;
+            for(int i=0;i<l;i++) if(s1[i]!=s[i]) diff1++;
+            for(int i=0;i<l;i++) if(s2[i]!=s[i]) diff2++;
+            return min(diff1,diff2)/2;
+            
+        }
+        if(cnt1>cnt0)
+        {
+            //required string is 1010101.....
+            int diff=0;
+            for(int i=0;i<l;i++) if(s1[i]!=s[i]) diff++;
+            return diff/2;
+            
+        }
+        // cnt0>cnt1
+        //required string is 010101010101.........
+        int diff=0;
+            for(int i=0;i<l;i++) if(s2[i]!=s[i]) diff++;
+            return diff/2;
+    }
+};
