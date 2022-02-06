@@ -1,0 +1,34 @@
+class Solution {
+public:
+    long long smallestNumber(long long num) {
+        if(num==0) return num;
+        bool neg=false;
+        if(num<0) neg=true;
+        string s= to_string(num);
+        if(neg) s.erase(0,1);
+        if(neg)
+        {
+            sort(s.rbegin(),s.rend());
+            return -stoll(s);
+        }
+        int small=10;
+        int idx=-1;
+        for(int i=0;i<s.length();i++)
+        {
+            if( (s[i]-'0') <small && s[i]!='0')
+            {
+                small = s[i]-'0';
+                idx=i;
+            }
+        }
+        string ans;
+        ans+=s[idx];
+        s.erase(idx,1);
+        
+        
+        sort(s.begin(),s.end());
+        ans += s;
+        cout<<ans;
+        return stoll(ans);
+    }
+};
