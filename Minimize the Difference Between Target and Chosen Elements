@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int solve(vector<vector<int>> &mat,int &target,int row,int n,vector<vector<int>> &dp,int sum)
+    {
+        if(row==0) return dp[row][sum]=abs(target-sum);
+        if(dp[row][sum]!=-1) return dp[row][sum];
+        int diff=INT_MAX;
+        for(int i=0;i<n;i++)
+        {
+            int k=solve(mat,target,row-1,n,dp,sum+mat[row-1][i]);
+            if(k<diff) diff=k;
+            if(diff==0) break;
+        }
+        return dp[row][sum]=diff;
+    }
+    int minimizeTheDifference(vector<vector<int>>& mat, int target) {
+        int m=mat.size() , n=mat[0].size();
+        vector<vector<int>> dp(m+1,vector<int> (5000,-1));
+        int sum=0;
+        return solve(mat,target,m,n,dp,sum);
+    }
+};
