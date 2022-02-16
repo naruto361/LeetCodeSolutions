@@ -1,13 +1,20 @@
 ## [Single Number II](https://leetcode.com/problems/single-number-ii/)
 ```cpp
-int singleNumber(vector<int>& nums) {
-        unordered_map<int,int> mp;
-        
-        for(int i=0;i<nums.size();i++)
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        long long ans=0;
+        int f[33]={0};
+        1 extra bit to handle -ve numbers
+        for(long long i=0;i<33;i++)
         {
-            mp[nums[i]]++;
-            if(mp[nums[i]]==3) mp.erase(nums[i]);
+            for(int j=0;j<nums.size();j++)
+            {
+                if(nums[j]&(1LL*1<<i)) f[i]++;
+            }
+            if(f[i]%3==1) ans+=pow(2,i);
         }
-        return mp.begin()->first;     
+        return ans;
     }
+};
 ```
