@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int maxScoreWords(vector<string>& words, vector<char>& letters, vector<int>& score) {
+        int n=words.size();
+        int maxi=0;
+        vector<int> cnt(26,0);
+        for(char &c:letters) cnt[c-'a']++;
+        for(int i=0;i<(1<<n);i++)
+        {
+            //cout<<i<<" ";
+            int ans=0;
+            bool ok=true;
+            vector<int> duplicate=cnt;
+            for(int j=0;j<n;j++)
+            {
+                if(i&(1<<j))
+                {
+                    for(char &c:words[j])
+                    {
+                        ans += score[c-'a'];
+                        duplicate[c-'a']--;
+                        if(duplicate[c-'a']<0)
+                        {
+                            ok=false;break;
+                        }
+                    }
+                    if(!ok) break;
+                }
+            }
+            //cout<<ok<<" "<<ans<<'\n';
+            if(ok) maxi=max(maxi,ans);
+            
+        }
+        return maxi;
+    }
+};
