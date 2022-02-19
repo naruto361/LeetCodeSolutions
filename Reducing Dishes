@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int dfs(vector<vector<int>> &dp,vector<int> &s , int p,int t)
+    {
+        if(p>=s.size()) return 0;
+        if(dp[p][t]!=-1) return dp[p][t];
+        return dp[p][t]=max(dfs(dp,s,p+1,t) , //exclude pth element i.e s[p]
+                           s[p]*t + dfs(dp,s,p+1,t+1)); // include s[p]
+    }
+    int maxSatisfaction(vector<int>& satisfaction) {
+        vector<int> s=satisfaction;
+        sort(s.begin() , s.end());
+        if(s.back()<=0) return 0;
+        vector<vector<int>> dp(s.size(),vector<int> (s.size()+1,-1));
+        return dfs(dp,s,0,1);
+    }
+};
