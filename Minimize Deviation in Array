@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int minimumDeviation(vector<int>& nums) {
+        set<int> st;
+        for(auto &i:nums)
+        {
+            if(i&1) st.insert(i*2);
+            else st.insert(i);
+        }
+        // first element is *st.begin()
+        // last element is *st.rbegin()
+        int ans = *st.rbegin() - *st.begin();
+        while(*(--st.end())%2==0)
+        {
+            int k=*(--st.end());
+            st.erase(k);
+            st.insert(k/2);
+            //for(auto &i:st) cout<<i<<" ";
+            //cout<<'\n';
+            ans = min(ans , *st.rbegin() - *st.begin());
+            //cout<<ans<<"\n";
+        }
+        return ans;
+    }
+};
