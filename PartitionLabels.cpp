@@ -1,4 +1,31 @@
-
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        int l=s.length();
+        vector<int> first(26,l+1);
+        vector<int> last(26,-1);
+        for(int i=1;i<=s.length();i++)
+        {
+            if(first[s[i-1]-'a']==l+1)
+                first[s[i-1]-'a']=i;
+            last[s[i-1]-'a']=i;
+        }
+        vector<int> ans;
+        int finish=1;
+        int partstart=1;
+        for(int i=1;i<=s.length();i++)
+        {
+            finish=max(finish,last[s[i-1]-'a']);
+            if(finish==i)
+            {
+                ans.push_back(i-partstart+1);
+                partstart=i+1;
+            }
+        }
+        return ans;
+    }
+};
+//////////////////////////////////////////////////////////////
 vector<int> partitionLabels(string s) {
         unordered_map<char,int> mp;
         vector<int> ans;
