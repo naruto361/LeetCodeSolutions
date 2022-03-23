@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<int> prisonAfterNDays(vector<int>& cells, int n) {
+        vector<vector<int>> v;
+        vector<int> temp;
+        temp=cells;
+        //if(cells[0]==0 && cells[7]==0) {v.push_back(cells);}
+        int idx=0;
+        while(idx<n && idx<=64)
+        {
+            //cout<<idx<<" ";
+            vector<int> x;
+            x.push_back(0);
+            for(int i=1;i<7;i++)
+            {
+                int k=temp[i-1]+temp[i+1];
+                if(k==0 || k==2) x.push_back(1);
+                else x.push_back(0);
+            }
+            x.push_back(0);
+            if(v.size()>0 && x==v[0]) break;
+            else
+            {
+                v.push_back(x);
+            }
+            idx++;
+            temp=x;
+            x.clear();
+        }
+        if(idx==n) return v[n-1];
+        if(n%v.size()==0) return v.back();
+        return v[n%v.size()-1];
+    }
+};
