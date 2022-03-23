@@ -1,16 +1,36 @@
 class Solution {
 public:
     bool canReach(string s, int minJump, int maxJump) {
+        // BFS
         int n=s.length();
-        vector<bool> dp(n,false);
-        dp[0]=true;
-        int sum=0;
-        for(int i=1;i<n;i++)
+        if(s[n-1]=='1') return false;
+        queue<int> q;
+        q.push(0);
+        int curr_max=0;
+        while(!q.empty())
         {
-            if(i>=minJump && dp[i-minJump]) sum++;
-            if(i>maxJump && dp[i-maxJump-1]) sum--;
-            if(sum>0 && s[i]=='0') dp[i]=true;
+            int i=q.front();
+            q.pop();
+            if(i==n-1) return true;
+            for(int j=max(curr_max,i+minJump);j<=min(i+maxJump,n-1);j++)
+            {
+                if(s[j]=='0') q.push(j);
+            }
+            curr_max=min(n,i+maxJump+1);
         }
-        return dp[n-1];
+        return false;
+        
+        // DP
+        // int n=s.length();
+        // vector<bool> dp(n,false);
+        // dp[0]=true;
+        // int sum=0;
+        // for(int i=1;i<n;i++)
+        // {
+        //     if(i>=minJump && dp[i-minJump]) sum++;
+        //     if(i>maxJump && dp[i-maxJump-1]) sum--;
+        //     if(sum>0 && s[i]=='0') dp[i]=true;
+        // }
+        // return dp[n-1];
     }
 };
