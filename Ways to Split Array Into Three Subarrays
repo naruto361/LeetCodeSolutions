@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int waysToSplit(vector<int>& nums) {
+        vector<int> presum=nums;
+        int n=nums.size();
+        for(int i=1;i<n;i++)
+        {
+            presum[i]+=presum[i-1];
+        }
+        int ans=0;
+        int mod=1000000007;
+        for(int i=0,l=0,r=0;i<n-2;i++)
+        {
+            // 1st partition at ith index
+            // 2nd partition can be between l and r index
+            // ps[i] <= ps[j]-ps[i] <= ps[n-1]-ps[j]
+            
+            l=max(i+1,l);
+            // condition for "l"
+            // 1st condition : ps[i] <= ps[j]-ps[i]
+            while(l<n-1 && presum[l]<2*presum[i]) ++l;
+            
+            r=max(l,r);
+            // condition for "r"
+            // 2nd condition : ps[j]-ps[i] <= ps[n-1]-ps[j]
+            while(r<n-1 && presum[r]<=(presum[n-1]+presum[i])/2) ++r;
+            
+            ans = (ans + r-l)%mod;
+        }
+        return ans;
+    }
+};
