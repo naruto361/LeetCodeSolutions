@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int longestSubsequence(vector<int>& arr, int difference) {
+//         ***************  LIS TLE O(N^2)  *************
+//         int n=arr.size();
+//         if(n<3) return 0;
+//         vector<int> dp(n,1);
+//         int ans=1;
+//         for(int i=1;i<n;i++)
+//         {
+//             for(int j=0;j<i;j++)
+//             {
+//                 int diff = arr[i]-arr[j];
+//                 if(diff==difference)
+//                 {
+//                     if(dp[j]>0) dp[i]=dp[j]+1;
+//                     ans=max(ans,dp[i]);
+//                 }
+                
+//             }
+//             //cout<<dp[i]<<" "<<ans<<'\n';
+//         }
+//         return ans;
+        
+        unordered_map<int,int> mp;
+        int ans=1;
+        for(auto &i:arr)
+        {
+            if(mp.find(i-difference)!=mp.end())   
+                mp[i]=1+mp[i-difference];
+            else mp[i]=1;
+            ans=max(ans,mp[i]);
+        }
+        return ans;
+    }
+};
