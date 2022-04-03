@@ -1,35 +1,30 @@
-int largestRectangleArea(vector<int>& heights) {
-        int ans=0;
-        int i=0;
+class Solution {
+public:
+        // ******************  leftsmall and rightsmall  ***************
+    int largestRectangleArea(vector<int>& heights) {
+        int n=heights.size();
+        vector<int> leftsmall(n,-1),rightsmall(n,n);
         stack<int> st;
-        while(i<heights.size())
+        for(int i=0;i<n;i++)
         {
-            if(st.empty() || heights[i]>heights[st.top()])
+            while(!st.empty() && heights[i]<heights[st.top()])
             {
-                st.push(i++);
-                cout<<"push : "<<heights[i-1]<<endl;
-            }
-            else
-            {
-                int j=st.top();
+                rightsmall[st.top()]=i;
                 st.pop();
-                cout<<"pop : "<<heights[j]<<" "; 
-                int a=heights[j];
-                if(!st.empty()) a*=(i-st.top()-1),cout<<a<<"*"<<"("<<i<<"-"<<st.top()<<"-"<<1<<") ";
-                else cout<<a<<"*"<<i<<" ",a*=i;
-                cout<<"area : "<<a<<endl;
-                if(a>ans) ans=a;
             }
+            if(!st.empty()) leftsmall[i]=st.top();
+            //else leftsmall[i]=-1;
+            st.push(i);
         }
-        while(!st.empty())
+        // for(int i=0;i<n;i++) cout<<leftsmall[i]<<" ";
+        // cout<<'\n';
+        // for(int i=0;i<n;i++) cout<<rightsmall[i]<<" ";
+        // cout<<'\n';
+        int ans=0;
+        for(int i=0;i<n;i++)
         {
-            int j=st.top();
-                st.pop();
-                int a=heights[j];
-                if(!st.empty()) a*=(i-st.top()-1),cout<<a<<"*"<<"("<<i<<"-"<<st.top()<<"-"<<1<<") ";
-                else cout<<a<<"*"<<i<<" ",a*=i;
-                cout<<"area : "<<a<<endl;
-                if(a>ans) ans=a;
+            ans = max(ans, (rightsmall[i]-leftsmall[i]-1)*heights[i] );  
         }
         return ans;
-    }
+    } 
+};
