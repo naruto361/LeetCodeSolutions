@@ -1,48 +1,41 @@
-int largestRectangleArea(vector<int>& heights) {
-        int ans=0;
-        int i=0;
+class Solution {
+public:
+    int solve(vector<int> &arr)
+    {
         stack<int> st;
-        while(i<heights.size())
+        int n=arr.size();
+        vector<int> leftsmall(n,-1),rightsmall(n,n);
+        for(int i=0;i<n;i++)
         {
-            if(st.empty() || heights[i]>heights[st.top()])
+            while(!st.empty() && arr[i]<arr[st.top()])
             {
-                st.push(i++);
-            }
-            else
-            {
-                int j=st.top();
+                rightsmall[st.top()]=i;
                 st.pop();
-                int a=heights[j];
-                if(!st.empty()) a*=(i-st.top()-1);
-                else a*=i;
-                if(a>ans) ans=a;
             }
+            if(!st.empty()) leftsmall[i]=st.top();
+            st.push(i);
         }
-        while(!st.empty())
+        int ans=0;
+        for(int i=0;i<n;i++)
         {
-            int j=st.top();
-                st.pop();
-                int a=heights[j];
-                if(!st.empty()) a*=(i-st.top()-1);
-                else a*=i;
-                if(a>ans) ans=a;
+            ans = max(ans , arr[i]*(rightsmall[i]-leftsmall[i]-1));
         }
         return ans;
     }
+    
     int maximalRectangle(vector<vector<char>>& matrix) {
-        if(matrix.size()==0) return 0;
-        vector<int> heights(matrix[0].size(),0);
         int maxi=0;
-        for(int i=0;i<matrix.size();i++)
+        int m=matrix.size() , n=matrix[0].size();
+        vector<int> temp(n,0);
+        for(int i=0;i<m;i++)
         {
-            for(int j=0;j<matrix[0].size();j++)
+            for(int j=0;j<n;j++)
             {
-                if(matrix[i][j]=='0') heights[j]=0;
-                else heights[j]++;
+                if(matrix[i][j]=='0') temp[j]=0;
+                else temp[j]++;
             }
-            maxi=max(maxi,largestRectangleArea(heights));
-            //cout<<maxi<<" ";
+            maxi = max(maxi,solve(temp));
         }
         return maxi;
-        
     }
+};
