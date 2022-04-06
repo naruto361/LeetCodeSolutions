@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int threeSumMulti(vector<int>& arr, int target) {
+        int mod=1e9+7;
+        vector<int> f(301,0);
+        for(auto &i:arr) f[i]++;
+        long ans=0;
+        for(int i=0;i<=300;i++)
+        {
+            for(int j=i;j<=300;j++)
+            {
+                int x=target-i-j;
+                
+                if(x>=0)
+                {
+                    if(f[x]==0 || f[i]==0 || f[j]==0) continue;
+                    if(!(i<=j && j<=x)) continue;
+                    bool ok=false;
+                    //cout<<i<<" "<<j<<" "<<x<<'\n';
+                    if(i!=j && j!=x && x!=i)
+                    ans += f[i]*f[j]*f[x],ok=true;
+                    else if(i==j && j==x) ans += (1LL*f[i]*(f[j]-1)*(f[x]-2))/6,ok=true;
+                    else if(i==j) ans += (1LL*f[i]*(f[j]-1)/2*f[x]),ok=true;
+                    else if(j==x) ans += (1LL*f[i]*f[j]*(f[x]-1)/2),ok=true;
+                    else if(i==x) ans += (1LL*f[i]*f[j]*(f[x]-1)/2),ok=true;
+                    //if(ok) cout<<i<<" "<<j<<" "<<x<<'\n';
+                }
+            }
+        }
+        return ans%mod;
+    }
+};
