@@ -1,0 +1,35 @@
+class UndergroundSystem {
+public:
+    UndergroundSystem() {
+        
+    }
+    map<pair<string,string>,vector<int>> mp; // src,dest,time
+    map<int,pair<string,int>> mp1,mp2;
+    void checkIn(int id, string stationName, int t) {
+        mp1[id]={stationName,t};
+    }
+    
+    void checkOut(int id, string stationName, int t) {
+        mp2[id]={stationName,t};
+        string startSt=mp1[id].first;
+        int starttime=mp1[id].second;
+        mp[{startSt,stationName}].push_back(t-starttime);
+    }
+    
+    double getAverageTime(string startStation, string endStation) {
+        double idx=0,sum=0;
+        for(auto &i:mp[{startStation,endStation}])
+        {
+            ++idx;sum+=i;
+        }
+        return sum/idx;
+    }
+};
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * UndergroundSystem* obj = new UndergroundSystem();
+ * obj->checkIn(id,stationName,t);
+ * obj->checkOut(id,stationName,t);
+ * double param_3 = obj->getAverageTime(startStation,endStation);
+ */
