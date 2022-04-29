@@ -1,0 +1,42 @@
+class Solution {
+    private:
+    bool solve(vector<vector<int>> adj,vector<int> &color,int idx)
+    {
+        queue<int> q;
+        q.push(idx);
+        color[idx]=0;
+        while(!q.empty())
+        {
+                int node=q.front();
+                q.pop();
+                for(int &child:adj[node])
+                {
+                    if(color[child]==-1)
+                    {
+                        color[child]=color[node]^1;
+                        q.push(child);
+                    }
+                    else
+                    {
+                        if(color[child]==color[node]) return false;
+                    }
+                }
+        }
+        return true;
+    }
+public:
+    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
+        vector<vector<int>> adj(n);
+        for(auto &i:dislikes)
+        {
+            adj[i[0]-1].push_back(i[1]-1);
+            adj[i[1]-1].push_back(i[0]-1);
+        }
+        vector<int> color(n,-1);
+        for(int i=0;i<n;i++)
+        {
+            if(color[i]==-1 && !solve(adj,color,i)) return false;
+        }
+        return true;
+    }
+};
