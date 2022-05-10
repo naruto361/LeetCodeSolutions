@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int vis[100][100][101];
+    bool solve(vector<vector<char>> &grid,int i,int j,int bal)
+    {
+        int m=grid.size() , n=grid[0].size();
+        if(grid[i][j]=='(') ++bal;
+        else --bal;
+        if(bal<0 || bal>(m+n)/2 || vis[i][j][bal]) return false;
+        vis[i][j][bal]=true;
+        if(i==m-1 && j==n-1 && bal==0) return true;
+        if(i<m-1 && solve(grid,i+1,j,bal)) return true;
+        if(j<n-1 && solve(grid,i,j+1,bal)) return true;
+        return false;
+    }
+    bool hasValidPath(vector<vector<char>>& grid) {
+        return solve(grid,0,0,0);
+        
+    }
+};
