@@ -1,0 +1,39 @@
+```cpp
+class Solution {
+public:
+    bool checkValidString(string s) {
+        int cnt=0,bal=0;
+        for(char &c:s)
+        {
+            if(c=='*') cnt++;
+            else
+            {
+                if(c=='(') ++bal;
+                else --bal;
+                if(bal==-1)
+                {
+                    if(cnt==0) return false;
+                    bal=0;cnt--;
+                }
+            }
+        }
+        cnt=0,bal=0;
+        for(int i=s.length()-1;i>=0;i--)
+        {
+            if(s[i]=='*') ++cnt;
+            else
+            {
+                if(s[i]==')') ++bal;
+                else --bal;
+                if(bal==-1)
+                {
+                    if(cnt==0) return false;
+                    cnt--;
+                    bal=0;
+                }
+            }
+        }
+        return true;
+    }
+};
+```
