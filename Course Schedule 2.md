@@ -1,4 +1,4 @@
-## KAHN'S ALGO 
+## KAHN'S ALGO (STACK)
 ```
 class Solution {
 public:
@@ -68,6 +68,57 @@ public:
     }
 };
 ```
+## KAHN'S ALGO (BFS + QUEUE)
+
+```cpp
+class Solution {
+private:
+    vector<int> kahnsalgo(vector<vector<int>> &adj,vector<int> &degree,int n)
+    {
+        vector<int> res;
+        queue<int> q;
+        for(int i=0;i<n;i++)
+        {
+            if(degree[i]==0) q.push(i);
+        }
+        int count=0;
+        while(!q.empty())
+        {
+            int node=q.front();
+            q.pop();
+            for(auto &child:adj[node])
+            {
+                degree[child]--;
+                if(degree[child]==0) q.push(child);
+            }
+            res.push_back(node);
+            count++;
+        }
+        if(count==n) return res;
+        return {};
+    }
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<vector<int>> adj(numCourses);
+        vector<int> degree(numCourses,0);
+        for(auto &i:prerequisites)
+        {
+            adj[i[1]].push_back(i[0]);
+            degree[i[0]]++;
+        }
+        
+        //if(cycle(adj,numCourses)) return {}; DELETED THIS PART FOR COUNT==N
+        
+        //vector<int> res;
+        
+        return kahnsalgo(adj,degree,numCourses);
+        //return res;
+        
+    }
+};
+```
+
+
 ## USING DFS
 
 ```
