@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int leastBricks(vector<vector<int>>& wall) {
+        unordered_map<int,int> mp;
+        int n=wall.size();
+        int wallsum=0;
+        int idx=0;
+        for(auto &i:wall)
+        {
+            int sum=0;
+            for(auto &j:i)
+            {
+                sum += j;
+                if(idx==0)
+                wallsum+=j;
+                mp[sum]++;
+            }
+            idx++;
+        }
+        int ans=INT_MAX;
+        for(auto &i:mp)
+        {
+            if(i.first>=wallsum) continue;
+            ans=min(ans,n-i.second);
+        }
+        return min(ans,n);
+    }
+};
