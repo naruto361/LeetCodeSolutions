@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string maximumNumber(string num, vector<int>& change) {
+        int f[10];
+        for(int i=0;i<change.size();i++) f[i]=change[i];
+        bool changed=false;
+        for(char &c:num)
+        {
+            int before = c-'0';
+            int after=f[c-'0'];
+            if(changed)
+            {
+                if(after>=before)
+                {
+                    c=after+'0';
+                }
+                else break;
+            }
+            else
+            {
+                if(after>before)
+                {
+                    changed=true;
+                    c=after+'0';
+                }
+            }
+        }
+        return num;
+    }
+};
