@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int numSplits(string s) {
+        vector<bool> left(26,false);
+        vector<bool> right(26,false);
+        vector<int> discl(s.length(),0);
+        vector<int> discr(s.length(),0);
+        for(int i=0;i<s.length();i++)
+        {
+            if(i!=0) discl[i]=discl[i-1];
+            if(!left[s[i]-'a'])
+            {
+                left[s[i]-'a']=true;
+                discl[i]++;
+            }
+        }
+        for(int i=s.length()-1;i>=0;i--)
+        {
+            if(i!=s.length()-1) discr[i]=discr[i+1];
+            if(!right[s[i]-'a'])
+            {
+                right[s[i]-'a']=true;
+                discr[i]++;
+            }
+        }
+        int ans=0;
+        for(int i=1;i<s.length();i++)
+        {
+            if(discl[i-1]==discr[i]) ++ans;
+        }
+        return ans;
+    }
+};
