@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string lastSubstring(string s) {
+        char maxi=s[0];
+        int maxIdx=0;
+        for(int i=1;i<s.length();i++)
+        {
+            if(s[i]>maxi)
+            {
+                maxi=s[i];
+                maxIdx=i;
+            }
+            else if(s[i]==maxi)
+            {
+                int j=1;
+                while(s[i+j]==s[maxIdx+j] && maxIdx+j<i) j++;
+                if(s[i+j]>s[maxIdx+j]) maxIdx=i;
+                i=i+j-1;
+            }
+        }
+        return s.substr(maxIdx);//,s.length()-maxIdx+1);
+    }
+};
