@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int repeatedStringMatch(string a, string b) {
+        string A=a;
+        int f1[26]={0} , f2[26]={0};
+        for(char &c:a) f1[c-'a']++;
+        for(char &c:b) f2[c-'a']++;
+        for(int i=0;i<26;i++)
+        {
+            if(f1[i]==0 && f2[i]>0) return -1;
+        }
+        int l=b.length()/a.length() +2;
+        for(int i=0;i<=l;i++)
+        {
+            if(A.find(b)<A.length()) return i+1;
+            A+=a;
+        }
+        return -1;
+    }
+};
