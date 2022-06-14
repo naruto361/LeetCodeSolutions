@@ -1,0 +1,15 @@
+class Solution {
+public:
+    long long appealSum(string s) {
+        vector<int> prev(26,-1);
+        long long sum=0;
+        long long ans=0;
+        for(int i=0;i<s.length();i++)
+        {
+            sum += i-prev[s[i]-'a'];
+            ans+=sum;
+            prev[s[i]-'a']=i;
+        }
+        return ans;
+    }
+};
