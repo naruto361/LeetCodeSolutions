@@ -1,35 +1,27 @@
 class Solution {
 public:
+    bool check(vector<int> &f1,vector<int> &f2)
+    {
+        for(int i=0;i<26;i++) if(f1[i]!=f2[i]) return false;
+        return true;
+    }
     bool checkInclusion(string s1, string s2) {
-        int f[26]={0};
-        for(char c:s1) f[c-'a']++;
-        int l1=s1.length();
-        int l2=s2.length();
-        if(l2<l1) return false;
-        vector<vector<int>> v(l2,vector<int> (26,0));
-        v[0][s2[0]-'a']=1;
-        for(int i=1;i<l2;i++)
+        if(s1.length()>s2.length()) return false;
+        vector<int> f1(26,0);
+        for(char &c:s1) f1[c-'a']++;
+        vector<int> f2(26,0);
+        int n=s1.length();
+        for(int i=0;i<n;i++)
         {
-            v[i][s2[i]-'a']++;
-            for(int j=0;j<26;j++) v[i][j]+=v[i-1][j];
+            f2[s2[i]-'a']++;
         }
-        bool ok=true;
-        for(int i=0;i<26;i++)
+        if(check(f1,f2)) return true;
+        for(int i=n;i<s2.length();i++)
         {
-            if(f[i] != v[l1-1][i]) {ok=false;break;}
-        }
-        if(ok) return true;
-        for(int i=l1;i<l2;i++)
-        {
-            ok=true;
-            for(int j=0;j<26;j++)
-            {
-                if( f[j] !=( v[i][j]-v[i-l1][j]))
-                {ok=false;break;}
-            }
-            if(ok) return true;
+            f2[s2[i]-'a']++;
+            f2[s2[i-n]-'a']--;
+            if(check(f1,f2)) return true;
         }
         return false;
-        
     }
 };
