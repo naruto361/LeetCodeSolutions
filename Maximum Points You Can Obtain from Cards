@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maxScore(vector<int>& cardPoints, int k) {
+        //max from ends k
+        //min from subarray n-k
+        int n=cardPoints.size();
+        k=n-k;
+        int total=0;
+        for(int i=0;i<n;i++) total += cardPoints[i];
+        if(k==0) return total;
+        int mini=0;
+        for(int i=0;i<k;i++) mini+=cardPoints[i];
+        int curr=mini;
+        for(int i=k;i<n;i++)
+        {
+            curr += cardPoints[i];
+            curr -= cardPoints[i-k];
+            mini=min(mini,curr);
+        }
+        return total-mini;
+    }
+};
