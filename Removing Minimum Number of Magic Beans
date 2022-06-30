@@ -1,0 +1,15 @@
+class Solution {
+public:
+    long long minimumRemoval(vector<int>& beans) {
+        sort(beans.rbegin(),beans.rend());
+        long long sum = 0;
+        for(auto &i:beans) sum += i;
+        long long ans=1e18;
+        for(int i=1;i<=beans.size();i++)
+        {
+            long long k=1LL*beans[i-1]*i;
+            ans=min(ans,sum-k);
+        }
+        return ans;
+    }
+};
