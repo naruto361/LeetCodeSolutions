@@ -1,0 +1,58 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    
+    void parents(TreeNode* root,unordered_map<int,int> &mp)
+    {
+        queue<TreeNode*> q;
+        q.push(root);
+        mp[root->val]=-1;
+        while(!q.empty())
+        {
+            int n=q.size();
+            while(n--)
+            {
+                TreeNode* k=q.front();
+                q.pop();
+                if(k->left)
+                {
+                    mp[k->left->val]=k->val;
+                    q.push(k->left);
+                }
+                if(k->right) 
+                {
+                    mp[k->right->val]=k->val;
+                    q.push(k->right);
+                }
+            }
+        }
+    }
+    bool flipEquiv(TreeNode* root1, TreeNode* root2) {
+        if(!root1 && !root2) return true;
+        if(!root1 || !root2) return false;
+        
+        // sabke parent to same hi rahenge flip karne ke baad bhi
+        unordered_map<int,int> mp1,mp2;
+        parents(root1,mp1);
+        parents(root2,mp2);
+        for(int i=0;i<=100;i++)
+        {
+            if(mp1.find(i)==mp1.end() && mp2.find(i)==mp2.end())
+                continue;
+            if(mp1.find(i)==mp1.end() || mp2.find(i)==mp2.end())
+                return false;
+            if(mp1[i] != mp2[i]) return false;
+        }
+        return true;
+    }
+};
