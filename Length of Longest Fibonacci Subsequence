@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int lenLongestFibSubseq(vector<int>& arr) {
+        int n=arr.size();
+        int maxi=0;
+        set<int> st(arr.begin(),arr.end());
+        for(int i=0;i<n-2;i++)
+        {
+            for(int j=i+1;j<n-1;j++)
+            {
+                int len=2;
+                int x=arr[i] , y=arr[j];
+                while(st.find(x+y)!=st.end())
+                {
+                    len++;
+                    int k=x;
+                    x=y;
+                    y+=k;
+                }
+                if(len>2) maxi=max(maxi,len);
+            }
+        }
+        return maxi;
+    }
+};
