@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int calculate(string s) {
+        char sign='+';
+        long long ans=0,curr=0;
+        stack<int> st;
+        for(int i=0;i<s.length();i++)
+        {
+            if(s[i]==' ' && i!=s.length()-1) continue;
+            if(s[i]>='0' && s[i]<='9') curr=curr*10 + s[i]-'0';
+            if(i==s.length()-1 || !isdigit(s[i]))
+            {
+                if(sign=='-') st.push(-curr);
+                else if(sign=='+') st.push(curr);
+                else
+                {
+                    int k=st.top();
+                    st.pop();
+                    if(sign=='*') k*=curr;
+                    else k/=curr;
+                    st.push(k);
+                }
+                curr=0;sign=s[i];
+            }
+            if(st.empty()) cout<<"X ";
+            else cout<<st.top()<<' ';
+            cout<<' '<<curr<<' '<<sign<<'\n';
+        }
+        while(!st.empty()) 
+        {
+            ans += st.top();
+            st.pop();
+        }
+        return ans;
+    }
+};
