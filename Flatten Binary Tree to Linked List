@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void preorder(vector<int> &v,TreeNode* root)
+    {
+        if(!root) return ;
+        v.push_back(root->val);
+        if(root->left) preorder(v,root->left);
+        if(root->right) preorder(v,root->right);
+    }
+    void flatten(TreeNode* root) {
+        if(!root) return ;
+        if(!root->left && !root->right) return;
+        vector<int> v;
+        preorder(v,root);
+        TreeNode* temp=root;
+        int i=0;
+        while(i<v.size())
+        {
+            temp->val=v[i++];
+            temp->left=NULL;
+            if(i==v.size()) break;
+            if(!temp->right) temp->right=new TreeNode();
+            temp=temp->right;
+        }
+    }
+};
