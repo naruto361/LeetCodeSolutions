@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int mod=1e9+7;
+    vector<int> dx={0,1,0,-1};
+    vector<int> dy={1,0,-1,0};
+    long long int dp[51][51][51];
+    bool isOut(int m,int n,int r,int c)
+    {
+        return (r<0 || r>=m || c<0 || c>=n);
+    }
+    int findPaths(int m, int n, int maxMove, int r, int c) {
+        for(int k=1;k<=maxMove;k++)
+        {
+            for(int i=0;i<m;i++)
+            {
+                for(int j=0;j<n;j++)
+                {
+                    for(int p=0;p<4;p++)
+                    {
+                        if(isOut(m,n,i+dx[p],j+dy[p])) dp[i][j][k]++;
+                        else dp[i][j][k] = (dp[i][j][k]%mod + dp[i+dx[p]][j+dy[p]][k-1]%mod )%mod;
+                    }
+                }
+            }
+        }
+    return dp[r][c][maxMove]%mod;
+    }
+};
