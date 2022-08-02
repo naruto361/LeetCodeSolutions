@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<int> dx={0,1,0,-1};
+    vector<int> dy={1,0,-1,0};
+    int nearestExit(vector<vector<char>>& maze, vector<int>& entrance) {
+        int m=maze.size() , n=maze[0].size();
+        queue<pair<int,int>> q;
+        vector<vector<int>> dp(m,vector<int> (n,-1));
+        // for(int i=0;i<m;i++)
+        // {
+        //     if(i==entrance[0] && 0==entrance[1]) continue;
+        //     if(i==entrance[0] && n-1==entrance[1]) continue;
+        //     if(maze[i][0]=='.') {q.push({i,0});dp[i][0]=0;}
+        //     if(maze[i][n-1]=='.') {q.push({i,n-1});dp[i][n-1]=0;}
+        // }
+        // for(int i=0;i<n;i++)
+        // {
+        //     if(i==entrance[1] && 0==entrance[0]) continue;
+        //     if(i==entrance[1] && m-1==entrance[0]) continue;
+        //     if(&& maze[0][i]=='.') {q.push({0,i});dp[0][i]=0;}
+        //     if(maze[m-1][i]=='.') {q.push({m-1,i});dp[m-1][i]=0;}
+        // }
+        q.push({entrance[0],entrance[1]});
+        dp[entrance[0]][entrance[1]]=0;
+        int ans=INT_MAX;
+        while(!q.empty())
+        {
+            int x=q.front().first, y= q.front().second;
+            int dist=dp[x][y];
+            q.pop();
+            for(int k=0;k<4;k++)
+            {
+                int i=x+dx[k] , j=y+dy[k];
+                if(i>=0 && i<m && j>=0 && j<n && maze[i][j]=='.' && dp[i][j]==-1)
+                {
+                    dp[i][j]=1+dist;
+                    q.push({i,j});
+                    if(i==0 || j==0 || i==m-1 || j==n-1) ans=min(ans,1+dist);
+                }
+            }
+        }
+        if(ans==INT_MAX) return -1;
+        return ans;
+    }
+};
