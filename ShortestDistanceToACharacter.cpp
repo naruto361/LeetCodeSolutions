@@ -1,21 +1,25 @@
 class Solution {
 public:
     vector<int> shortestToChar(string s, char c) {
-        vector<int>v,ans;
+        vector<int> v;
         for(int i=0;i<s.length();i++)
         {
-            if(s[i]==c)     v.push_back(i);
+            if(s[i]==c) v.push_back(i);
         }
-        int j=0;
+        vector<int> res;
+        int ptr=0;
         for(int i=0;i<s.length();i++)
-        {   
-            int mini=INT_MAX;
-            for(int j=0;j<v.size();j++)
+        {
+            int ans=INT_MAX;
+            ans=min(ans,abs(i-v[ptr]));
+            if(ptr>0)
             {
-                if(abs(v[j]-i)<mini) mini=abs(v[j]-i);
+                ans=min(ans,abs(i-v[ptr-1]));
             }
-            ans.push_back(mini);
+            if(i==v[ptr]) ++ptr;
+            ptr=min((int)v.size()-1,ptr);
+            res.push_back(ans);
         }
-        return ans;
+        return res;
     }
 };
