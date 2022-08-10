@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<int> ans;
+    bool possible(int node,int color,vector<vector<int>> &adj,vector<int> &col)
+    {
+        for(auto &child:adj[node])
+        {
+            if(col[child]==color) return false;
+        }
+        return true;
+    }
+    bool solve(int node,vector<vector<int>> &adj,vector<int> &col,int n,vector<int> &temp)
+    {
+        if(node==n+1)
+        {
+            ans=temp;return true;
+        }
+        for(int i=1;i<=4;i++)
+        {
+            if(possible(node,i,adj,col))
+            {
+                col[node]=i;
+                temp.push_back(i);
+                if(solve(node+1,adj,col,n,temp)) return true;
+                temp.pop_back();
+                col[node]=0;
+                
+            }
+        }
+        return false;
+    }
+    vector<int> gardenNoAdj(int n, vector<vector<int>>& paths) {
+        vector<vector<int>> adj(n+1);
+        for(auto &i:paths)
+        {
+            adj[i[0]].push_back(i[1]);
+            adj[i[1]].push_back(i[0]);
+        }
+        vector<int> col(n+1,0);
+        vector<int> temp;
+        solve(1,adj,col,n,temp);
+        return ans;
+    }
+};
