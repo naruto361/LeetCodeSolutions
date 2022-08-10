@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int findLengthOfShortestSubarray(vector<int>& arr) {
+        int r=arr.size()-1;
+        while(r>0 && arr[r]>=arr[r-1]) r--;
+        int ans=r;// till now ew have sorted from r to end -> so ans is r
+        // now 2 ptr
+        //l is start and r is end 2 be removed.
+        for(int l=0;l<r;l++)
+        {
+            if(l==0 || arr[l]>=arr[l-1]) // 0 se l tak sorted
+            {
+                cout<<l<<" : "<<r<<" ";
+                while(r<arr.size() && arr[l]>arr[r]) ++r;
+                // r to end tak sorted and arr[r]>=arr[l]
+                // matlab l se r tak ke beech sorted nhi h
+                cout<<r<<'\n';
+                ans=min(ans,r-l-1);
+            }
+            else break;
+            
+        }
+        return ans;
+        
+    }
+};
