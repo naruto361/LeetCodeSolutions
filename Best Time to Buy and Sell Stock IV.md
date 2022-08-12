@@ -1,3 +1,4 @@
+```cpp
 class Solution {
 public:
     int maxProfit(int k, vector<int>& prices) {
@@ -26,3 +27,32 @@ public:
         return sell[k];
     }
 };
+```
+
+```cpp
+class Solution {
+public:
+    int dp[1001][101][2];
+    int solve(vector<int> &prices,int i,int k,int buy)
+    {
+        if(i==prices.size() || (k==0 && buy==1)) return 0;
+        if(dp[i][k][buy]!=-1) 
+            return dp[i][k][buy];
+        int profit=0;
+        if(buy)
+        {
+            profit=max( solve(prices,i+1,k-1,0)-prices[i] , solve(prices,i+1,k,1) );
+        }
+        else
+        {
+            profit=max( solve(prices,i+1,k,1)+prices[i] , solve(prices,i+1,k,0) );
+        }
+        return dp[i][k][buy]=profit;
+    }
+    int maxProfit(int k, vector<int>& prices) {
+        int n=prices.size();
+        memset(dp,-1,sizeof(dp));
+        return solve(prices,0,k,1);
+    }
+};
+```
