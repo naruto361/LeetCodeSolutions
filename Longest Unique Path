@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int solve(TreeNode* root,int prev,int curr,int &ans)
+    {
+        if(!root) return 0;
+        int l=solve(root->left,root->val,curr,ans);
+        int r=solve(root->right,root->val,curr,ans);
+        ans=max(ans,l+r);
+        if(root->val==prev)
+        {
+            return 1+max(l,r);
+        }
+        return 0;
+    }
+    int longestUnivaluePath(TreeNode* root) {
+        int ans=0;
+        solve(root,INT_MIN,0,ans);
+        return ans;
+    }
+};
