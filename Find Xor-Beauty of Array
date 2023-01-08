@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int xorBeauty(vector<int>& nums) {
+        vector<int> v(31,0);
+        int maxi=-1;
+        int minus=0;
+        for(int i=30;i>=0;i--)
+        {
+            for(int &j:nums)
+            {
+                if(j&(1<<i)) v[i]++;
+            }
+            if(v[i]>0) maxi=max(maxi,i);
+            if(i<=maxi && v[i]%2==0) minus+=(1<<i);
+        }
+        int ans=2*(1<<maxi)-1;
+        //cout<<ans;
+        ans-=minus;
+        return ans;
+    }
+};
