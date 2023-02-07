@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int longestNiceSubarray(vector<int>& nums) {
+        int ans=1;
+        int n=nums.size();
+        int bitsUnion=0,l=0,r=0;
+        while(r<n)
+        {
+            // subarray end at R index
+                while(l<=r && (bitsUnion&nums[r])!=0)
+                {
+                    bitsUnion^=nums[l]; // if L th index does not satisfy cnd , remove it
+                    l++;
+                }
+            bitsUnion|=nums[r];
+            ans=max(ans,r-l+1);
+            r++;
+        }
+        // 000001
+        // 000011
+        // 001000
+        // 110000
+        // 001010
+        return ans;
+    }
+};
