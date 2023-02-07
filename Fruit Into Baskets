@@ -1,26 +1,24 @@
 class Solution {
 public:
     int totalFruit(vector<int>& fruits) {
-        int ans=0,best=0;
-        int x=-1,y=-1,f=0;
-        for(int &i:fruits)
+        int lastFruit=1,secLastFruit=-1;
+        int lastFruitCount=0;
+        int curr=0,ans=0;
+        for(auto &i:fruits)
         {
-            if(i==x || i==y) ans++;
-            else ans=f+1;
+            if(i==lastFruit || i==secLastFruit) ++curr;
+            else curr=1+lastFruitCount;
             
-            if(i==y)
-            {
-                f++;
-            }
+            if(i==lastFruit) lastFruitCount++;
             else
             {
-                x=y;
-                y=i;
-                f=1;
+                lastFruitCount=1;
+                secLastFruit=lastFruit;
+                lastFruit=i;
             }
             
-            best=max(best,ans);
+            ans=max(ans,curr);
         }
-        return best;
+        return ans;
     }
 };
